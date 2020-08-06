@@ -35,6 +35,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
+import { SearchPropertiesForSaleComponent } from '../moopla/components/search-properties-for-sale/search-properties-for-sale.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -87,6 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] },
       { path : 'userSetting', component: UserSettingsComponent, canActivate: [AuthGuardService] },
       { path : 'unRegister', component: UnregisterationComponent, canActivate: [AuthGuardService] },
+      { path : 'searchForSale', component: SearchPropertiesForSaleComponent},
  
     ]),
   ],

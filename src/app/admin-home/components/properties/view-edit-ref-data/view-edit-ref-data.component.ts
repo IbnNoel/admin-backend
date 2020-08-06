@@ -97,11 +97,10 @@ export class ViewEditRefDataComponent implements OnInit {
     }
     if(entity = 'priceList') {
       console.log(this.thirdFormGroup.value.rentRange);
-      
-      // this.priceListServer.updatepriceList(this.thirdFormGroup.value._id, this.thirdFormGroup.value)
-      // .subscribe(data => {
-      //   console.log(data);
-      // })
+      this.priceListServer.updatepriceList(this.thirdFormGroup.value._id, this.thirdFormGroup.value)
+      .subscribe(data => {
+        console.log(data);
+      })
     }
   }
 

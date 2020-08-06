@@ -87,14 +87,32 @@ export class AdminPropertiesComponent implements OnInit {
         header: 'Decimal Format',
       },
       {
-        key: 'priceList.rentRange',
-        className: `data_grid_left_align`,
         header: 'Rent Range',
+        cellElement: (cellData, rowData, row, col, td) => {
+          let Range = rowData.priceList.rentRange;
+          const ref = $('<select>' + '</select>')
+          let output = [];
+          output.push('<option value="'+ 0 +'">'+ 'see Range' +'</option>');
+          $.each(Range, function(key: number, value){
+            output.push('<option value="'+ key +'">'+ value +'</option>');
+          });
+          $(ref).html(output.join(''));
+          $(td).html(' ').append(ref);
+        }, className: 'data_grid_center_align', responsivePriority: true
       },
       {
-        key: 'priceList.saleRange',
-        className: `data_grid_left_align`,
         header: 'Sale Range',
+        cellElement: (cellData, rowData, row, col, td) => {
+          let Range = rowData.priceList.saleRange;
+          const ref = $('<select>' + '</select>')
+          let output = [];
+          output.push('<option value="'+ 0 +'">'+ 'see Range' +'</option>');
+          $.each(Range, function(key: number, value){
+            output.push('<option value="'+ key +'">'+ value +'</option>');
+          });
+          $(ref).html(output.join(''));
+          $(td).html(' ').append(ref);
+        }, className: 'data_grid_center_align', responsivePriority: true
       },
       {
         cellElement: (cellData, rowData, row) => {
