@@ -17,22 +17,23 @@ import { Store } from '@ngrx/store';
 export class AuthGuardService implements CanActivate{
    user = null;
 
-  constructor(private store: Store<AppState>, private auth : AuthService, private router: Router) { 
+  constructor(private store: Store<AppState>, private auth : AuthService, private router: Router) {
     this.store.select(store => store.User.user).pipe(filter((data) => !!data))
-      .subscribe((user: any)=> this.user = user);
+      .subscribe((user: any) => this.user = user);
   }
 
   canActivate(route, state: RouterStateSnapshot) {
     return this.store.select(store => store.User.user).pipe(map(user => {
-      if(user) return true;
+      if (user) { return true; }
       this.router.navigate(['/login'], {queryParams: { returnUrl: state.url }});
-      return false 
+
+      return false;
     }));
   }
 }
 @Injectable()
 export class RoleGaurdService {
-  userRoles= [];
+  userRoles = [];
   constructor(private store: Store<AppState>){
     this.store.select(store => store.User.user).pipe(filter((data) => !!data))
       .subscribe((user: any)=> this.userRoles = user.roles);
@@ -50,7 +51,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
+
     if (!!this.auth.getJwtToken()) {
       req = req.clone({
         setHeaders: {

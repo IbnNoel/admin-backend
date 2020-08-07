@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as firebase from 'firebase';
 import { auth } from 'firebase/app';
@@ -28,7 +28,8 @@ export class AuthService {
   private JWT_TOKEN = 'JWT_TOKEN';
 
   constructor(private store: Store<AppState>, private ngZone: NgZone, private statusMessageService: MessageService,
-    private afAuth: AngularFireAuth, private router: Router, private MGBUser: MarriageBanditsUserService, private addressServices: AddressMdbService) {
+              private route: ActivatedRoute, private afAuth: AngularFireAuth, private router: Router,
+              private MGBUser: MarriageBanditsUserService, private addressServices: AddressMdbService) {
     this.user$ = afAuth.authState;
   }
 
@@ -68,6 +69,9 @@ export class AuthService {
   }
 
   emailLogin(email: string, password: string) {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl', returnUrl);
+
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((value: any) => {
         this.signedUpAddress._id = value.user.uid;
@@ -111,6 +115,9 @@ export class AuthService {
   }
 
   async AuthLogin(provider) {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl', returnUrl);
+
     this.afAuth.auth.signInWithPopup(provider).then((result: any) => {
       localStorage.setItem(this.JWT_TOKEN, result.user._lat);
       if (result.additionalUserInfo.isNewUser) {
@@ -155,6 +162,9 @@ export class AuthService {
   }
 
   get appUser$(): Observable<User> {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl', returnUrl);
+
     return this.user$
       .pipe(switchMap((user: any) => {
         if (user && user.emailVerified) {
