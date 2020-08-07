@@ -96,14 +96,10 @@ export class ViewEditRefDataComponent implements OnInit {
           console.log(data);
         })
     }
-    if (entity = 'priceList') {
+    if (entity === 'priceList') {
       this.thirdFormGroup.patchValue({
-        rentRange: this.thirdFormGroup.value.rentRange.sort(function (b, a) {
-          return b - a;
-        }),
-        saleRange: this.thirdFormGroup.value.saleRange.sort(function (b, a) {
-          return b - a;
-        })
+        rentRange: this.thirdFormGroup.value.rentRange.sort((a, b) => a - b),
+        saleRange: this.thirdFormGroup.value.saleRange.sort((a, b) => a - b)
       });
       console.log(this.thirdFormGroup.value.rentRange);
       this.priceListServer.updatepriceList(this.thirdFormGroup.value._id, this.thirdFormGroup.value)
