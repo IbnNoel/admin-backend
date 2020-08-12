@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
+import { RefData } from '../models/ref-data';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class RefDataService {
   constructor(private http: HttpClient) { }
 
   getRefData(_id) {
-    return this.http.get(`${this.url}/getSpecificRefData/${_id}`);
+    return this.http.get<RefData>(`${this.url}/getSpecificRefData/${_id}`);
   }
 
   searchRefData(searchedQ,pgS, pgN) {

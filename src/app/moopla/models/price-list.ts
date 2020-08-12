@@ -1,4 +1,5 @@
-export interface PriceList{
-    minPrice: Array<number>;
-    maxPrice: Array<number>;
+export interface PriceList {
+    _id: string;
+    rentRange: number[];
+    saleRange: number[];
 }

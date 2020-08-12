@@ -13,7 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreModule } from "@ngrx/store";
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LanguageEffects } from 'src/app/state/language.effects';
 import { environment } from 'src/environments/environment.prod';
@@ -39,11 +39,11 @@ import { MooplaModule } from './moopla/moopla.module';
 import { AppDropdownComponent } from './components/controls/dropdown/app.dropdown.component';
 import { ViewEditRefDataComponent } from './admin-home/components/properties/view-edit-ref-data/view-edit-ref-data.component';
 import { ChipsComponent } from './components/controls/chips/chips.component';
+import { PriceListReducer } from './reducers/price-list-form.reducers';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
-
 
 @NgModule({
   declarations: [
@@ -80,8 +80,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       selectLang: SelelectLanguageReducer,
       pageLanguage: SelelectPageLanguageReducer,
       language: LanguageReducer,
-      routerReducer: routerReducer,
-      User: UserReducer
+      routerReducer,
+      User: UserReducer,
+      priceList: PriceListReducer
     }),
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([LanguageEffects]),

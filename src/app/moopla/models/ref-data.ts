@@ -1,13 +1,11 @@
-import { SaleMeta } from './sale-meta';
-import { RentMeta } from './rent-meta';
-import { Locale } from './local';
-
+import { Local } from './local';
+import { PriceList } from './price-list';
 export interface RefData {
-    saleMeta: SaleMeta;
-    rentMeta: RentMeta;
-    country: string;
-    currencyCode: string;
-    local: Locale;
-    rentPeriod: string; // i.e per week, per month.. the standard per country
-  }
-  
+  _id: string;
+  country: string;
+  currencyCode: string;
+  rentPeriod: string[];
+  priceList_id: string;
+  local: Local;
+  priceList: PriceList;
+}

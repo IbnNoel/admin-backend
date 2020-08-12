@@ -8,23 +8,23 @@ import { UserActions, UserActionsTypes } from '../state/user-actions';
 import { User } from '../shared/models/user';
 
 export interface LanguageState {
-  list: string[],
-  loading?: boolean,
-  error?: Error
+  list: string[];
+  loading?: boolean;
+  error?: Error;
 }
 
 export const LanginitialState: LanguageState = {
   list: [],
   loading: false,
   error: undefined
-}
+};
 export function LanguageReducer(
-  state: LanguageState = LanginitialState, 
+  state: LanguageState = LanginitialState,
   action: LanguageAction) {
 
-    switch(action.type) {
+    switch (action.type) {
         case LanguageActionTypes.LOAD_LANGUAGES:
-            return { 
+            return {
               ...state,
               loading: true,
               error: null
@@ -34,9 +34,9 @@ export function LanguageReducer(
             state,
             list: action.payload,
             loading: false
-          }
+          };
         case LanguageActionTypes.LOAD_LANGUAGES_FAIL:
-            return { 
+            return {
               ...state,
               error: action.payload,
               loading: false
@@ -65,13 +65,13 @@ export function LanguageReducer(
 }
 
 export interface SelectLangState {
-  selectedLang: Language
+  selectedLang: Language;
 }
 export const selectLanguageInitialState: SelectLangState = {
   selectedLang: {
     language: 'en'
   }
-}
+};
 export function SelelectLanguageReducer(
   state:SelectLangState = selectLanguageInitialState, 
   action: SelectLanguagAction ) 
@@ -84,11 +84,11 @@ export function SelelectLanguageReducer(
     }
 }
 export interface PageLanguageState {
-  selectedLang: string
+  selectedLang: string;
 }
 export const pageLanguageInitialState: PageLanguageState = {
   selectedLang: 'en'
-}
+};
 export function SelelectPageLanguageReducer(
   state:PageLanguageState = pageLanguageInitialState, 
   action: SelectPageLanguage ) 
@@ -102,12 +102,12 @@ export function SelelectPageLanguageReducer(
 }
 
 export interface UserState {
-  user: User
+  user: User;
 }
 
 export const UserInitialState = {
   user: null
-}
+};
 export function UserReducer(
   state: UserState = UserInitialState,
   action: UserActions) 

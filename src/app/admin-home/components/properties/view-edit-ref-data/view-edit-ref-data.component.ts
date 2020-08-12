@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RefDataService } from 'src/app/moopla/services/ref-data.service';
 import { LocalService } from 'src/app/shared/services/local.service';
@@ -8,7 +8,10 @@ import { PriceListService } from 'src/app/shared/services/price-list.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import * as _ from 'lodash';
-
+import { take } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { UpdatePriceListForm } from 'src/app/state/models/price-list-form.actions';
+import { AppState } from 'src/app/state/models/app-state-models';
 
 @Component({
   selector: 'app-view-edit-ref-data',
@@ -24,10 +27,10 @@ export class ViewEditRefDataComponent implements OnInit {
     priceList: false,
     local: false
   };
-
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  periodArr = [];
 
   selectable = true;
   removable = true;
@@ -35,109 +38,85 @@ export class ViewEditRefDataComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   inputCtrl = new FormControl();
 
-  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private _location: Location,
-    private refDataService: RefDataService, private localService: LocalService, private priceListServer: PriceListService) {
+  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute,
+              private _location: Location, private refDataService: RefDataService,
+              private localService: LocalService, private priceListServer: PriceListService,
+              private store: Store<AppState>) {
     this.refDataId = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
-    this.refDataService.getRefData(this.refDataId).subscribe((data: any) => {
-      console.log(data);
+    // this.refDataService.getRefData(this.refDataId).subscribe(data =>
+    //   this.store.dispatch(new UpdatePriceListForm(data.priceList)));
+
+    this.refDataService.getRefData(this.refDataId).subscribe(data => {
+      this.updateState(data.priceList);
+      this.periodArr = _.cloneDeep(data.rentPeriod);
       this.firstFormGroup = this._formBuilder.group({
         _id: [data._id],
-        country: [data.country, { updateOn: 'submit' }],
-        currencyCode: [data.currencyCode, { updateOn: 'submit' }],
-        rentPeriod: [data.rentPeriod, { updateOn: 'submit' }],
-
+        country: [data.country, { updateOn: 'onSubmit' }],
+        currencyCode: [data.currencyCode, { updateOn: 'onSubmit' }],
+        rentPeriod: [data.rentPeriod, { updateOn: 'onSubmit' }],
       });
       this.secondFormGroup = this._formBuilder.group({
         _id: [data.local._id],
-        local: [data.local.local, { updateOn: 'submit' }],
-        description: [data.local.description, { updateOn: 'submit' }],
-        shortDateFormat: [data.local.shortDateFormat, { updateOn: 'submit' }],
-        longDateFormat: [data.local.longDateFormat, { updateOn: 'submit' }],
-        timeFormat: [data.local.timeFormat, { updateOn: 'submit' }],
-        decimalFormat: [data.local.decimalFormat, { updateOn: 'submit' }],
-        systemDefault: [data.local.systemDefault, { updateOn: 'submit' }],
+        local: [data.local.local, { updateOn: 'onSubmit' }],
+        description: [data.local.description, { updateOn: 'onSubmit' }],
+        shortDateFormat: [data.local.shortDateFormat, { updateOn: 'onSubmit' }],
+        longDateFormat: [data.local.longDateFormat, { updateOn: 'onSubmit' }],
+        timeFormat: [data.local.timeFormat, { updateOn: 'onSubmit' }],
+        decimalFormat: [data.local.decimalFormat, { updateOn: 'onSubmit' }],
+        systemDefault: [data.local.systemDefault, { updateOn: 'onSubmit' }],
       });
       this.thirdFormGroup = this._formBuilder.group({
         _id: [!data.priceList._id ? '' : data.priceList._id],
-        rentRange: [data.priceList.rentRange, { updateOn: 'submit' }],
-        saleRange: [data.priceList.saleRange, { updateOn: 'submit' }]
+        rentRange: [data.priceList.rentRange, { updateOn: 'onSubmit' }],
+        saleRange: [data.priceList.saleRange, { updateOn: 'onSubmit' }],
       });
-    })
-  }
-
-  change(data, value) {
-    if (value == 'rentRange') {
-      this.thirdFormGroup.patchValue({
-        rentRange: data
-      });
-      // this.thirdFormGroup.controls(rentRange).
-    }
-    if (value == 'saleRange') {
-      this.thirdFormGroup.patchValue({
-        saleRange: data
-      })
-    }
+    });
   }
 
   onSubmit(entity) {
     this.editState[entity] = false;
-    if (entity == 'refData') {
+    if (entity === 'refData') {
+      this.periodArr = this.firstFormGroup.value.rentPeriod;
       this.refDataService.updateRefData(this.firstFormGroup.value._id, this.firstFormGroup.value)
         .subscribe(data => {
+          this.periodArr = this.firstFormGroup.value.rentPeriod;
           console.log(data);
-        })
+        });
     }
-    if (entity == 'local') {
+    if (entity === 'local') {
       this.localService.updateLocal(this.secondFormGroup.value._id, this.secondFormGroup.value)
         .subscribe(data => {
           console.log(data);
-        })
+        });
     }
     if (entity === 'priceList') {
       this.thirdFormGroup.patchValue({
         rentRange: this.thirdFormGroup.value.rentRange.sort((a, b) => a - b),
         saleRange: this.thirdFormGroup.value.saleRange.sort((a, b) => a - b)
       });
-      console.log(this.thirdFormGroup.value.rentRange);
+      this.updateState(this.thirdFormGroup.value);
       this.priceListServer.updatepriceList(this.thirdFormGroup.value._id, this.thirdFormGroup.value)
         .subscribe(data => {
           console.log(data);
-        })
+        });
     }
+  }
+  updateState(value) {
+    this.store.dispatch(new UpdatePriceListForm(_.cloneDeep(value)));
   }
 
   backButton() {
     this._location.back();
   }
 
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-    debugger;
-    let testInput: any = this.thirdFormGroup.value.rentRange;
-    if (value) {
-      testInput.push(+value);
-    }
-    if (input) {
-      input.value = ''
-        ;
-    }
-    this.inputCtrl.setValue(null);
+  cancel(value) {
+    this.editState.priceList = !this.editState.priceList;
+    this.store.pipe(take(1)).subscribe(store => {
+      this.thirdFormGroup.patchValue(store.priceList.priceList);
+    });
   }
 
-  remove(data: any): void {
-    let testInput: any = this.thirdFormGroup.value.rentRange;
-
-    const index = testInput.indexOf(data);
-    if (index >= 0) {
-      testInput.splice(index, 1);
-    }
-  }
-
-  test() {
-    console.log(this.thirdFormGroup.value.rentRange);
-  }
 }

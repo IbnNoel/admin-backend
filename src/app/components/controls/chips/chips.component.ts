@@ -1,11 +1,8 @@
-import { Component, OnInit, Input, Output, forwardRef } from '@angular/core';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { EventEmitter } from '@angular/core';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-
 
 @Component({
   selector: 'app-chips',
@@ -21,22 +18,20 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class ChipsComponent implements OnInit, ControlValueAccessor {
 
+  constructor() {
+  }
+
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  onChange: any = () => {}
-  onTouch: any = () => {}
+  @Input() stringInput;
 
   addOnBlur = false;
   input: any;
   inputCtrl = new FormControl();
+  onChange: any = () => {};
+  onTouch: any = () => {};
 
-  constructor() {
-    debugger;
-   }
-
-  
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
@@ -48,17 +43,19 @@ export class ChipsComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit(): void {
-    debugger;
   }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
-    let copiedInput= this.input;
-
+    const copiedInput = this.input;
     if (value) {
-      copiedInput.push(+value);
+      if (this.stringInput) {
+        copiedInput.push(value);
+      } else {
+        copiedInput.push(+value);
+      }
     }
     if (input) {
       input.value = '';
@@ -68,20 +65,18 @@ export class ChipsComponent implements OnInit, ControlValueAccessor {
   }
 
   remove(data: any): void {
-    let copiedInput= this.input;
+    const copiedInput = this.input;
 
     const index = copiedInput.indexOf(data);
 
     if (index >= 0) {
       copiedInput.splice(index, 1);
     }
-    console.log(this.input);
-        
   }
 
   drop(event: CdkDragDrop<number[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     this.input = [...this.input];
-}
+  }
 
 }

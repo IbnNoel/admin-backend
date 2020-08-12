@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class LanguageEffects {
-   
+
     constructor(
         private router: Router,
         private actions$: Actions,
         private translationMDBService: TranslationsMdbService
     ) {}
-        
+
     @Effect() loadlanguages$ = this.actions$
     .pipe(
         ofType<LoadLanguages>(LanguageActionTypes.LOAD_LANGUAGES),

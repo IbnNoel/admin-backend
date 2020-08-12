@@ -26,8 +26,10 @@
                                     <input type="text" class="form-control" formControlName="currencyCode" />
                                 </li>
                                 <li class="list-group-item"><label>Rent Period </label>
-                                    <span class="readContent">{{firstFormGroup.value.rentPeriod}}</span>
-                                    <input type="text" class="form-control" formControlName="rentPeriod" />
+                                    <span class="readContent">{{periodArr}}</span>
+                                    <app-chips *ngIf="editState.refData" [stringInput]="true" formControlName="rentPeriod"></app-chips>
+
+                                    <!-- <input type="text" class="form-control" formControlName="rentPeriod" /> -->
                                 </li>
                                 <li class="list-group-item editBtns">
                                     <div class="row">
@@ -43,7 +45,7 @@
                     </div>
                     
 <div [ngClass]="{'editState':editState.priceList}">
-    <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup" (ngSubmit)="onSubmit('priceList')">
+    <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup">
         <ul class="list-group">
             <li class="list-group-item  panel-heading">
                 <div class="row">
@@ -55,19 +57,25 @@
                 </div>
             </li>
             <li  class="list-group-item"><label>Rent Range</label>
-                <span class="readContent">{{thirdFormGroup.value.rentRange}}</span>
+                <input type="text" formControlName="rentRange"/>
+                <select>
+                     <option>Rent Range</option>
+                     <option *ngFor="let range of thirdFormGroup.value.rentRange">{{range}}</option>
+                </select>
                 <app-chips *ngIf="editState.priceList" formControlName="rentRange"></app-chips>
             </li>
             <li  class="list-group-item"><label>Sale Range</label>
-                <span class="readContent">{{thirdFormGroup.value.saleRange}}</span>
+                <select>
+                    <option>Sale Range</option>
+                   <option *ngFor="let range of thirdFormGroup.value.saleRange">{{range}}</option>
+               </select>
                 <app-chips *ngIf="editState.priceList" formControlName="saleRange"></app-chips>
             </li>
             <li class="list-group-item editBtns">
                 <div class="row">
                     <div class="col-md-12">
-                        <button (click)="editState.priceList = !editState.priceList"
-                            class="btn btn-default pull-left">Cancel</button>
-                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                        <button (click)="cancel('')" class="btn btn-default pull-left">Cancel</button>
+                        <button (click)="onSubmit('priceList')" type="submit" class="btn btn-primary pull-right">Save</button>
                     </div>
                 </div>
             </li>
@@ -138,9 +146,6 @@
             </div>
         </div>
     </div>
-
-    <button class="btn btn-default pull-left" (click)="test()">Test</button>
 </div>
 
 <!-- <app-chips *ngIf="editState.priceList" formControlName="rentRange"></app-chips> -->
-

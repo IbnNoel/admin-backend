@@ -34,5 +34,4 @@ export class AddLanguageFail implements Action {
   constructor(public payload: any) { }
 }
 
-
 export type LanguageAction = LoadLanguages | LoadLanguagesSuccess | LoadLanguagesFail | AddLanguage | AddLanguageSuccess | AddLanguageFail;
