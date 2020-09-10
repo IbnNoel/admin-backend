@@ -18,6 +18,9 @@ import { AdminPropertiesComponent } from './components/properties/admin-properti
 import { EditRefDataComponent } from './components/properties/edit-ref-data/edit-ref-data.component';
 import { AddCountryComponent } from './components/properties/add-country/add-country.component';
 import { ViewEditRefDataComponent } from './components/properties/view-edit-ref-data/view-edit-ref-data.component';
+import { NewsComponent } from './components/news/news.component';
+import { EditArticleComponent } from './components/news/edit-article/edit-article.component';
+import { SeePostInfoComponent } from './components/news/see-post-info/see-post-info.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { ViewEditRefDataComponent } from './components/properties/view-edit-ref-
     PrivilegeComponent,
     AdminPropertiesComponent,
     EditRefDataComponent,
-    AddCountryComponent
+    AddCountryComponent,
+    NewsComponent,
+    EditArticleComponent,
+    SeePostInfoComponent
   ],
   imports: [
     SharedModule,
@@ -42,7 +48,7 @@ import { ViewEditRefDataComponent } from './components/properties/view-edit-ref-
     RouterModule.forRoot([
       { 
         path: 'admin', 
-        component:AdminHomeComponent,
+        component: AdminHomeComponent,
         canActivate: [RoleGaurdService],
         data: {roles: ['Admin']},
         children: [
@@ -54,12 +60,15 @@ import { ViewEditRefDataComponent } from './components/properties/view-edit-ref-
           { path: 'users', component: AdminComponent},
           { path: 'adminAddnewLanguage', component: AdminAddNewLanguageComponent},
           { path: 'admin-user/:id', component: AdminUsersComponent},
-          { path:'edit-language', component: EditWordComponent},
-          { path:'add-lang', component: AdminAddLanguageComponent},
-          { path:'add-word/:lang', component: AddWordComponent},
-          { path:'properties', component: AdminPropertiesComponent},
-          { path:'creatCountry', component: AddCountryComponent},
-          { path:'editRefData/:id', component: ViewEditRefDataComponent}
+          { path: 'edit-language', component: EditWordComponent},
+          { path: 'add-lang', component: AdminAddLanguageComponent},
+          { path: 'add-word/:lang', component: AddWordComponent},
+          { path: 'properties', component: AdminPropertiesComponent},
+          { path: 'creatCountry', component: AddCountryComponent},
+          { path: 'editRefData/:id', component: ViewEditRefDataComponent},
+          { path: 'propertyNews', component: NewsComponent},
+          { path: 'seePostInfo', component: SeePostInfoComponent },
+
         ]
     }
     ])
@@ -76,6 +85,6 @@ import { ViewEditRefDataComponent } from './components/properties/view-edit-ref-
     AuthGuardService,
     RoleGaurdService
   ],
-  entryComponents: [AdminUsersComponent, AdminAddLanguageComponent]
+  entryComponents: [AdminUsersComponent, EditArticleComponent, AdminAddLanguageComponent]
 })
 export class AdminHomeModule { }

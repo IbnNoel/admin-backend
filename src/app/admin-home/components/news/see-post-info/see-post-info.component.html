@@ -1,0 +1,147 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>{{'POST_INFO' | translate}}</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div [ngClass]="{'editState':editState.post}">
+                        <form *ngIf="editForm" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                            <ul class="list-group">
+                                <li class="list-group-item  panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5><i></i>Post</h5>
+                                            <a class="glyphicon glyphicon-pencil btn btn-primary pull-right"
+                                                (click)="editState.post = !editState.post"></a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item"><label>articleHeadline</label>
+                                    <span class="readContent">{{editForm.value.articleHeadline}}</span>
+                                    <input type="text" class="form-control" formControlName="articleHeadline" />
+                                </li>
+                                <li class="list-group-item"><label>location Code</label>
+                                    <span class="readContent">{{editForm.value.locationCode}}</span>
+                                    <input type="text" class="form-control" formControlName="locationCode" />
+                                </li>
+                                <!-- <li class="list-group-item"><label>Text</label>
+                                    <span class="readContent">{{editForm.value.text}}</span>
+                                    <textarea  class="input" class="form-control" formControlName="text"></textarea>
+                                </li> -->
+                                <li class="list-group-item editBtns">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button (click)="editState.post = !editState.post"
+                                                class="btn btn-default pull-left">Cancel</button>
+                                            <button type="submit" class="btn btn-primary pull-right">Save</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                    
+<!-- <div [ngClass]="{'editState':editState.priceList}">
+    <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup">
+        <ul class="list-group">
+            <li class="list-group-item  panel-heading">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><i></i>priceList</h5>
+                        <a class="glyphicon glyphicon-pencil btn btn-primary pull-right"
+                            (click)="editState.priceList = !editState.priceList"></a>
+                    </div>
+                </div>
+            </li>
+            <li  class="list-group-item"><label>Rent Range</label>
+                <input type="text" formControlName="rentRange"/>
+                <select>
+                     <option>Rent Range</option>
+                     <option *ngFor="let range of thirdFormGroup.value.rentRange">{{range}}</option>
+                </select>
+                <app-chips *ngIf="editState.priceList" formControlName="rentRange"></app-chips>
+            </li>
+            <li  class="list-group-item"><label>Sale Range</label>
+                <select>
+                    <option>Sale Range</option>
+                   <option *ngFor="let range of thirdFormGroup.value.saleRange">{{range}}</option>
+               </select>
+                <app-chips *ngIf="editState.priceList" formControlName="saleRange"></app-chips>
+            </li>
+            <li class="list-group-item editBtns">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button (click)="cancel('')" class="btn btn-default pull-left">Cancel</button>
+                        <button (click)="onSubmit('priceList')" type="submit" class="btn btn-primary pull-right">Save</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </form>
+</div> -->
+                </div>
+                <div class="col-md-6">
+                    <!-- <form *ngIf="secondFormGroup" [formGroup]="secondFormGroup" (ngSubmit)="onSubmit('local')"
+                        [ngClass]="{'editState':editState.local}">
+                        <ul class="list-group">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i></i>Local</h5>
+                                        <a type="button" class="glyphicon glyphicon-pencil btn btn-primary pull-right"
+                                            (click)="editState.local = !editState.local"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item"><label>Local</label>
+                                <span class="readContent">{{secondFormGroup.value.local}}</span>
+                                <input type="text" class="form-control" formControlName="local" />
+                            </li>
+                            <li class="list-group-item"><label>description</label>
+                                <span class="readContent">{{secondFormGroup.value.description}}</span>
+                                <input type="text" class="form-control" formControlName="description" />
+                            </li>
+                            <li class="list-group-item"><label>Short Date Format</label>
+                                <span class="readContent">{{secondFormGroup.value.shortDateFormat}}</span>
+                                <input type="text" class="form-control" formControlName="shortDateFormat" />
+                            </li>
+                            <li class="list-group-item"><label>long Date Format</label>
+                                <span class="readContent">{{secondFormGroup.value.longDateFormat}}</span>
+                                <input type="text" class="form-control" formControlName="longDateFormat" />
+                            </li>
+                            <li class="list-group-item"><label>Time Format</label>
+                                <span class="readContent">{{secondFormGroup.value.timeFormat}}</span>
+                                <input type="text" class="form-control" formControlName="timeFormat" />
+                            </li>
+                            <li class="list-group-item"><label>Decimal Format</label>
+                                <span class="readContent">{{secondFormGroup.value.decimalFormat}}</span>
+                                <input type="text" class="form-control" formControlName="decimalFormat" />
+                            </li>
+                            <li class="list-group-item"><label>system Default</label>
+                                <span style='font-size: 25px'
+                                    [ngClass]="{'glyphicon-ok-circle' : secondFormGroup.value.systemDefault, 'glyphicon-remove-circle':!secondFormGroup.value.systemDefault }"
+                                    class='glyphicon readContent'></span>
+                                <mat-checkbox class="example-margin" formControlName="systemDefault"></mat-checkbox>
+                            </li>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.local = !editState.local"
+                                            class="btn btn-default pull-left">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-default pull-left" (click)="backButton()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

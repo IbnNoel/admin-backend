@@ -53,8 +53,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ForgetPasswordComponent,
     UnregisterationComponent,
     EmailVerificationComponent,
-    ShortNumberPipe,
-  ],
+    ShortNumberPipe
+],
   imports: [
     MatButtonModule,
     MatSelectModule,

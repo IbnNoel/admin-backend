@@ -11,6 +11,6 @@ export const environment = {
     measurementId: "G-JBSTL8LD5E"
   },
   mapboxKey: 'pk.eyJ1IjoieG1vdXRheiIsImEiOiJjazVvM3RubzUxMXppM21ydzQ5dDI4ZnY3In0.4gqa8rQR0W0VXixe51JxbA',
-  baseUrl: "https://marriage-bandits.herokuapp.com",
-  // baseUrl: "http://localhost:8081",
+  // baseUrl: "https://marriage-bandits.herokuapp.com",
+  baseUrl: "http://localhost:8081",
 };

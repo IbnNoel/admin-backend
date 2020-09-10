@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>{{'MANAGE_NEWS' | translate}}</h3>
+        <form [formGroup]="searchFormGroup" (ngSubmit)="onPageChange('search')">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>{{'AUTHOR_ID' | translate}}</label>
+                        <input type="text" class="form-control" formControlName='userId'>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>{{'ARTICLE_HEADLINE' | translate}}</label>
+                        <input type="text" class="form-control" formControlName='articleHeadline'>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="button btn btn-primary pull-right">{{'SEARCH' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <app-data-table [Columns]="colDefinitions" [Data]='data' [(GeneralSettings)]="generalSettings"
+            [ExpansionSettings]="expansionSettings" [PageSettings]="pageSettings"></app-data-table>
+    </div>
+</div>

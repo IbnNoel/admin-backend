@@ -28,8 +28,8 @@ export class AdminPropertiesComponent implements OnInit {
   expansionSettings: ExpansionSettings;
   searchFormGroup: FormGroup;
 
-  constructor(public CFR: ComponentFactoryResolver, private _formBuilder: FormBuilder, private router: Router, 
-    private refDataService: RefDataService, private localServie: LocalService, private priceListService: PriceListService) { 
+  constructor(public CFR: ComponentFactoryResolver, private _formBuilder: FormBuilder, private router: Router,
+    private refDataService: RefDataService, private localServie: LocalService, private priceListService: PriceListService) {
     this.setUpColumnDefintion();
     this.expansionSettings = this.setupExpansionSettings();
     this.setUppageSettings();
@@ -40,8 +40,8 @@ export class AdminPropertiesComponent implements OnInit {
       _id: [''],
       country: [''],
       selectedCountry: ['']
-     });
-     this.onPageChange();
+    });
+    this.onPageChange();
   }
 
   setUpColumnDefintion() {
@@ -89,12 +89,12 @@ export class AdminPropertiesComponent implements OnInit {
       {
         header: 'Rent Range',
         cellElement: (cellData, rowData, row, col, td) => {
-          let Range = rowData.priceList.rentRange;
+          const Range = rowData.priceList.rentRange;
           const ref = $('<select>' + '</select>')
-          let output = [];
-          output.push('<option value="'+ 0 +'">'+ 'see Range' +'</option>');
-          $.each(Range, function(key: number, value){
-            output.push('<option value="'+ key +'">'+ value +'</option>');
+          const output = [];
+          output.push('<option value="' + 0 + '">' + 'see Range' + '</option>');
+          $.each(Range, function (key: number, value) {
+            output.push('<option value="' + key + '">' + value + '</option>');
           });
           $(ref).html(output.join(''));
           $(td).html(' ').append(ref);
@@ -103,12 +103,12 @@ export class AdminPropertiesComponent implements OnInit {
       {
         header: 'Sale Range',
         cellElement: (cellData, rowData, row, col, td) => {
-          let Range = rowData.priceList.saleRange;
+          const Range = rowData.priceList.saleRange;
           const ref = $('<select>' + '</select>')
-          let output = [];
-          output.push('<option value="'+ 0 +'">'+ 'see Range' +'</option>');
-          $.each(Range, function(key: number, value){
-            output.push('<option value="'+ key +'">'+ value +'</option>');
+          const output = [];
+          output.push('<option value="' + 0 + '">' + 'see Range' + '</option>');
+          $.each(Range, function (key: number, value) {
+            output.push('<option value="' + key + '">' + value + '</option>');
           });
           $(ref).html(output.join(''));
           $(td).html(' ').append(ref);
@@ -121,19 +121,19 @@ export class AdminPropertiesComponent implements OnInit {
       }
     ];
   }
-// all old authentication and admin panel project" On branch authentication-privileges
+  // all old authentication and admin panel project" On branch authentication-privileges
   setUppageSettings() {
     this.pageSettings = new PageSettings(() => {
       this.onPageChange();
     });
   }
-  
-  onPageChange(value?) {
-    (value)? this.pageSettings.currentPage=1: this.pageSettings.currentPage; 
 
-    let pgN = this.pageSettings.currentPage;
-    let pgS = this.pageSettings.pageSize;
-    this.refDataService.searchRefData(this.searchFormGroup,pgS, pgN).subscribe(
+  onPageChange(value?) {
+    (value) ? this.pageSettings.currentPage = 1 : this.pageSettings.currentPage;
+
+    const pgN = this.pageSettings.currentPage;
+    const pgS = this.pageSettings.pageSize;
+    this.refDataService.searchRefData(this.searchFormGroup, pgS, pgN).subscribe(
       (data: any) => {
         console.log(data);
         this.pageSettings.setTotalRecords(data.total);
@@ -146,21 +146,21 @@ export class AdminPropertiesComponent implements OnInit {
   }
 
   generateActionMenuForRfr(cellData, rowData, row) {
-    let menu = new ActionMenuComponent();
-    let editRefData = new ActionButton();
-    editRefData.label = "EDIT_REFDATA";
+    const menu = new ActionMenuComponent();
+    const editRefData = new ActionButton();
+    editRefData.label = 'EDIT_REFDATA';
     editRefData.data = rowData;
     editRefData.action = (data) => {
-      this.expansionSettings.ExpandGrid({ id: data._id, propertyName: "_id" });
+      this.expansionSettings.ExpandGrid({ id: data._id, propertyName: '_id' });
     };
-    let deleteButton = new ActionButton();
-    deleteButton.label = "delete";
+    const deleteButton = new ActionButton();
+    deleteButton.label = 'delete';
     deleteButton.data = rowData;
     deleteButton.action = (data => {
       this.deleteRefData(data);
     });
-    let viewButton = new ActionButton();
-    viewButton.label = "VIEW-REFDATA";
+    const viewButton = new ActionButton();
+    viewButton.label = 'VIEW-REFDATA';
     viewButton.data = rowData;
     viewButton.action = (data => {
       this.router.navigate([`admin/editRefData/${data._id}`])
@@ -169,28 +169,32 @@ export class AdminPropertiesComponent implements OnInit {
     return menu;
   };
 
-  
+
   setupExpansionSettings() {
     return new ExpansionSettings(false, (viewContainerRef, rowData, row) => {
       return new Promise<any>((resolve) => {
         const componentResolve =
           this.CFR.resolveComponentFactory(EditRefDataComponent);
-        let component = viewContainerRef.createComponent(componentResolve);
+        const component = viewContainerRef.createComponent(componentResolve);
         component.instance.editFormGroup.patchValue({
           country: rowData.country,
           currencyCode: rowData.currencyCode,
           rentPeriod: rowData.rentPeriod
         });
+
         component.instance.update.subscribe(event => {
           this.refDataService.updateRefData(rowData._id, component.instance.editFormGroup.value)
             .pipe(filter((data: any) => data.success === true))
             .subscribe((data) => {
-              this.generalSettings.UpddateRow({ id: rowData._id, propertyName: "_id" }, rowData);
+              rowData.country = component.instance.editFormGroup.value.country;
+              rowData.currencyCode = component.instance.editFormGroup.value.currencyCode;
+              rowData.rentPeriod = component.instance.editFormGroup.value.rentPeriod;
+              this.generalSettings.UpddateRow({ id: rowData._id, propertyName: '_id' }, rowData);
             });
-          this.expansionSettings.CollapseGrid({ id: rowData._id, propertyName: "_id" });
+          this.expansionSettings.CollapseGrid({ id: rowData._id, propertyName: '_id' });
         });
         component.instance.cancel.subscribe(event => {
-          this.expansionSettings.CollapseGrid({ id: rowData._id, propertyName: "_id" });
+          this.expansionSettings.CollapseGrid({ id: rowData._id, propertyName: '_id' });
         });
         resolve(component);
       });
@@ -205,9 +209,9 @@ export class AdminPropertiesComponent implements OnInit {
     this.refDataService.deleteRefDate(data._id).subscribe(data => data);
     this.localServie.deleteLocal(data.local_id).subscribe(data => data);
     this.priceListService.deletePriceList(data.priceList_id).subscribe(data => data);
-    this.generalSettings.DeleteRow({ id: data._id, propertyName: "_id" });
+    this.generalSettings.DeleteRow({ id: data._id, propertyName: '_id' });
   }
-  
+
   onCountryChange(value) {
     console.log(value);
   }
