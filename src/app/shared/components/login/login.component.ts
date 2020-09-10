@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     ],
     'password': [
       { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 5 characters long' },
+      { type: 'minlength', message: 'Password must be at least 8 characters long' },
       { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase,one number and one special charachter' }
     ],
     }
