@@ -26,3 +26,7 @@ export class PropertyNewsService {
     return this.http.patch(`${this.baseURL}/editPostInfo`, news);
   }
 }
+
+export class News {
+  constructor() {}
+}

@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase,one number and one special charachter' }
     ],
     }
-    
+
   constructor(private _formBuilder: FormBuilder, private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
