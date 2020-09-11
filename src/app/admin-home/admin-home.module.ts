@@ -65,7 +65,7 @@ import { SeePostInfoComponent } from './components/news/see-post-info/see-post-i
           { path: 'add-word/:lang', component: AddWordComponent},
           { path: 'properties', component: AdminPropertiesComponent},
           { path: 'creatCountry', component: AddCountryComponent},
-          { path: 'editRefData/:id', component: ViewEditRefDataComponent},
+          { path: 'editRefData', component: ViewEditRefDataComponent},
           { path: 'propertyNews', component: NewsComponent},
           { path: 'seePostInfo', component: SeePostInfoComponent },
 

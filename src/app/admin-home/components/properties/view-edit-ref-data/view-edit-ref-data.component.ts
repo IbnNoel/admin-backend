@@ -38,67 +38,53 @@ export class ViewEditRefDataComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   inputCtrl = new FormControl();
 
-  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute,
-              private _location: Location, private refDataService: RefDataService,
-              private localService: LocalService, private priceListServer: PriceListService,
-              private store: Store<AppState>) {
+  Data: any;
+  refDataParams: any;
+  localParams: any;
+  priceListParams: any;
+
+  constructor(private route: ActivatedRoute, private _location: Location,
+    private refDataService: RefDataService, private localService: LocalService,
+    private priceListServer: PriceListService, private store: Store<AppState>) {
     this.refDataId = this.route.snapshot.paramMap.get('id');
+
+    this.route.params.pipe(take(1)).subscribe(data => {
+      const rentPeriod = JSON.parse(data.rentPeriod);
+      const rentPeriodModified = JSON.parse(data.rentPeriod);
+      this.Data = _.cloneDeep(data);
+      this.refDataParams = { ...this.Data, rentPeriod, rentPeriodModified };
+
+      this.localParams = JSON.parse(data.local);
+
+      this.priceListParams = JSON.parse(data.priceList);
+      const rentRangeModified = this.priceListParams.rentRange;
+      const saleRangeModified = this.priceListParams.saleRange;
+      this.priceListParams = { ...this.priceListParams, rentRangeModified, saleRangeModified };
+    });
   }
 
   ngOnInit(): void {
-    // this.refDataService.getRefData(this.refDataId).subscribe(data =>
-    //   this.store.dispatch(new UpdatePriceListForm(data.priceList)));
-
-    this.refDataService.getRefData(this.refDataId).subscribe(data => {
-      this.updateState(data.priceList);
-      this.periodArr = _.cloneDeep(data.rentPeriod);
-      this.firstFormGroup = this._formBuilder.group({
-        _id: [data._id],
-        country: [data.country, { updateOn: 'onSubmit' }],
-        currencyCode: [data.currencyCode, { updateOn: 'onSubmit' }],
-        rentPeriod: [data.rentPeriod, { updateOn: 'onSubmit' }],
-      });
-      this.secondFormGroup = this._formBuilder.group({
-        _id: [data.local._id],
-        local: [data.local.local, { updateOn: 'onSubmit' }],
-        description: [data.local.description, { updateOn: 'onSubmit' }],
-        shortDateFormat: [data.local.shortDateFormat, { updateOn: 'onSubmit' }],
-        longDateFormat: [data.local.longDateFormat, { updateOn: 'onSubmit' }],
-        timeFormat: [data.local.timeFormat, { updateOn: 'onSubmit' }],
-        decimalFormat: [data.local.decimalFormat, { updateOn: 'onSubmit' }],
-        systemDefault: [data.local.systemDefault, { updateOn: 'onSubmit' }],
-      });
-      this.thirdFormGroup = this._formBuilder.group({
-        _id: [!data.priceList._id ? '' : data.priceList._id],
-        rentRange: [data.priceList.rentRange, { updateOn: 'onSubmit' }],
-        saleRange: [data.priceList.saleRange, { updateOn: 'onSubmit' }],
-      });
-    });
   }
 
   onSubmit(entity) {
     this.editState[entity] = false;
+    this.refDataParams.rentPeriod = this.refDataParams.rentPeriodModified;
     if (entity === 'refData') {
-      this.periodArr = this.firstFormGroup.value.rentPeriod;
-      this.refDataService.updateRefData(this.firstFormGroup.value._id, this.firstFormGroup.value)
+      this.refDataService.updateRefData(this.refDataParams._id, this.refDataParams)
         .subscribe(data => {
-          this.periodArr = this.firstFormGroup.value.rentPeriod;
           console.log(data);
         });
     }
     if (entity === 'local') {
-      this.localService.updateLocal(this.secondFormGroup.value._id, this.secondFormGroup.value)
+      this.localService.updateLocal(this.localParams._id, this.localParams)
         .subscribe(data => {
           console.log(data);
         });
     }
     if (entity === 'priceList') {
-      this.thirdFormGroup.patchValue({
-        rentRange: this.thirdFormGroup.value.rentRange.sort((a, b) => a - b),
-        saleRange: this.thirdFormGroup.value.saleRange.sort((a, b) => a - b)
-      });
-      this.updateState(this.thirdFormGroup.value);
-      this.priceListServer.updatepriceList(this.thirdFormGroup.value._id, this.thirdFormGroup.value)
+      this.priceListParams.saleRange = this.priceListParams.saleRangeModified.sort((a, b) => a - b);
+      this.priceListParams.rentRange = this.priceListParams.rentRangeModified.sort((a, b) => a - b);
+      this.priceListServer.updatepriceList(this.priceListParams._id, this.priceListParams)
         .subscribe(data => {
           console.log(data);
         });
@@ -114,9 +100,9 @@ export class ViewEditRefDataComponent implements OnInit {
 
   cancel(value) {
     this.editState.priceList = !this.editState.priceList;
-    this.store.pipe(take(1)).subscribe(store => {
-      this.thirdFormGroup.patchValue(store.priceList.priceList);
-    });
+    // this.store.pipe(take(1)).subscribe(store => {
+    //   this.thirdFormGroup.patchValue(store.priceList.priceList);
+    // });
   }
 
 }

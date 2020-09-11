@@ -163,7 +163,12 @@ export class AdminPropertiesComponent implements OnInit {
     viewButton.label = 'VIEW-REFDATA';
     viewButton.data = rowData;
     viewButton.action = (data => {
-      this.router.navigate([`admin/editRefData/${data._id}`])
+      let params = data;
+      const rentPeriod = JSON.stringify(data.rentPeriod);
+      const local = JSON.stringify(data.local);
+      const priceList = JSON.stringify(data.priceList);
+      params = {...params, local, priceList, rentPeriod};
+      this.router.navigate([`admin/editRefData`, params]);
     });
     menu.buttons.push(editRefData, deleteButton, viewButton);
     return menu;
