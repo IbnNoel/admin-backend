@@ -25,6 +25,14 @@ export class PropertyNewsService {
   editPost(news) {
     return this.http.patch(`${this.baseURL}/editPostInfo`, news);
   }
+
+  uploadImage(post) {
+    return this.http.patch(`${this.baseURL}/uploadImage`, post);
+  }
+
+  createPost(post) {
+    return this.http.post(`${this.baseURL}/createNewPost`, post);
+  }
 }
 
 export class News {

@@ -1,0 +1,97 @@
+ <div class="container-fluid">
+    <div class="container">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>Display Info</h4>
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>display information</ng-template>
+                    <div class="row">
+                        <div class="form-group col-md-4 required">
+                            <label class="control-label">Article Headline</label>
+                            <input type="text" name="articleHeadline" formControlName="articleHeadline" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.articleHeadline.touched) && firstFormGroup.controls.articleHeadline.errors">
+                            <span *ngIf="firstFormGroup.controls.articleHeadline.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 required">
+                            <label class="control-label">text</label>
+                            <input type="text" formControlName="text" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.text.touched) && firstFormGroup.controls.text.errors">
+                            <span *ngIf="firstFormGroup.controls.text.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">readingTime</label>
+                            <input type="text" name="readingTime" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" formControlName="readingTime" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.readingTime.touched) && firstFormGroup.controls.readingTime.errors">
+                            <span *ngIf="firstFormGroup.controls.readingTime.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" matStepperNext>Next</button>
+                        </div>
+                    </div>
+                </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup">
+                    <ng-template matStepLabel>Additional Info</ng-template>
+                     <form *ngIf="secondFormGroup" [formGroup]="secondFormGroup">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">language: </label><br>
+                                <select name="language" formControlName="language">
+                                    <option *ngFor="let language of languages$ | async" [ngValue]="language">{{language | translate}}</option>
+                                </select>
+                                <div *ngIf="(secondFormGroup.controls.language.touched) && secondFormGroup.controls.language.errors">
+                                <span *ngIf="secondFormGroup.controls.language.invalid" class="msg-error">Error</span>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">images</label>
+                                <input type="file"  name="images" formControlName="images" (change)="selectImage($event)" class="form-control"/>
+                                <div *ngIf="(secondFormGroup.controls.language.touched) && secondFormGroup.controls.language.errors">
+                                <span *ngIf="secondFormGroup.controls.language.invalid" class="msg-error">Error</span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">locationCode</label>
+                                <input type="text" name="locationCode" formControlName="locationCode" class="form-control"/>
+                                <div *ngIf="(secondFormGroup.controls.locationCode.touched) && secondFormGroup.controls.locationCode.errors">
+                                <span *ngIf="secondFormGroup.controls.locationCode.invalid" class="msg-error">Error</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" matStepperPrevious>Back</button>
+                                <button class="btn btn-primary" matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>Your Post is complete please press submit button to submit information, or press back to adjust Post </p>
+                <div>
+                    <button class="btn btn-default" matStepperPrevious>Back</button>
+                    <button class="btn btn-primary" (click)="submit()">Submit</button>
+                </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+       </div>
+    </div>
+</div>

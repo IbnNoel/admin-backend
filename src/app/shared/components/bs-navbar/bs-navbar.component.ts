@@ -24,7 +24,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   btnWord = '';
   subscription: Subscription;
   languages$: Observable<Array<any>>;
-  selectedLanguage; 
+  selectedLanguage;
 
   constructor(private router: Router, private translate: TranslateService, public auth: AuthService, private store: Store<AppState>) {
   }

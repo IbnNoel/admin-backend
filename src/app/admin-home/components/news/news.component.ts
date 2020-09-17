@@ -141,4 +141,9 @@ export class NewsComponent implements OnInit {
       });
     });
   }
+
+  addPost() {
+    this.router.navigate(['admin/createPost']);
+  }
+
 }

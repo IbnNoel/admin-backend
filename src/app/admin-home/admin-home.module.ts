@@ -21,6 +21,7 @@ import { ViewEditRefDataComponent } from './components/properties/view-edit-ref-
 import { NewsComponent } from './components/news/news.component';
 import { EditArticleComponent } from './components/news/edit-article/edit-article.component';
 import { SeePostInfoComponent } from './components/news/see-post-info/see-post-info.component';
+import { CreatePostComponent } from './news/create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SeePostInfoComponent } from './components/news/see-post-info/see-post-i
     AddCountryComponent,
     NewsComponent,
     EditArticleComponent,
-    SeePostInfoComponent
+    SeePostInfoComponent,
+    CreatePostComponent
   ],
   imports: [
     SharedModule,
@@ -68,7 +70,7 @@ import { SeePostInfoComponent } from './components/news/see-post-info/see-post-i
           { path: 'editRefData', component: ViewEditRefDataComponent},
           { path: 'propertyNews', component: NewsComponent},
           { path: 'seePostInfo', component: SeePostInfoComponent },
-
+          { path: 'createPost', component: CreatePostComponent },
         ]
     }
     ])
