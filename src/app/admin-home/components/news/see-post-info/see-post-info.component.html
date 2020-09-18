@@ -75,8 +75,8 @@
                                 <li class="list-group-item"><label>Image key</label>
                                     <span class="readContent">{{imageData?.images_key}}</span>
                                     <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
-                                    <div><img *ngIf="!editState.image" [src]="getImageUrl()"></div>
-                                    <div><img *ngIf="editState.image" [src]="modifiedurl"></div>
+                                    <div><img *ngIf="!editState.image" width="407" height="229" [src]="getImageUrl()"></div>
+                                    <div><img *ngIf="editState.image" width="407" height="229" [src]="modifiedurl"></div>
                                     <p>
                                         <input type="file" (change)="selectImage($event)">
                                     </p>

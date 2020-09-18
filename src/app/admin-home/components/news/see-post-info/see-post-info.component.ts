@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import * as _ from 'lodash';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.prod';
+import { AwsService } from 'src/app/admin-home/services/aws.service';
 
 @Component({
   selector: 'app-see-post-info',
@@ -28,7 +29,8 @@ export class SeePostInfoComponent implements OnInit {
   msg = '';
   disabledButton = true;
 
-  constructor(private route: ActivatedRoute, private _location: Location, private postService: PropertyNewsService) {
+  constructor(private route: ActivatedRoute, private _location: Location, 
+              private postService: PropertyNewsService, private s3: AwsService) {
     this.route.params.pipe(take(1)).subscribe(data => {
       this.postData = _.cloneDeep(data);
       const featured = (data.featured === 'true') ? true : false;
@@ -40,6 +42,7 @@ export class SeePostInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.url = this.s3.getObj(this.imageData.images_key);
   }
 
   selectImage(event) {
@@ -70,7 +73,8 @@ export class SeePostInfoComponent implements OnInit {
   }
 
   getImageUrl() {
-   let url = this.url ? this.url : environment.awsS3Small + this.imageData;
+   let url = this.url ? this.url : environment.awsS3 + this.imageData.images_key;
+  //  let url = this.url ? this.url : this.s3.getObj(this.imageData.images_key);
    return url;
   }
 
