@@ -42,7 +42,7 @@ export class AwsService {
     // let s3 = new S3();
     const url = this.s3.getSignedUrl('getObject', {
       Bucket: environment.S3_BUCKET,
-      Key: 'post-001-p-500.jpeg',
+      Key: Inkey,
       Expires: 10
     });
 
