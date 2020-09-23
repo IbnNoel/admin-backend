@@ -21,13 +21,17 @@
                                     <span class="readContent">{{postData.articleHeadline}}</span>
                                     <input type="text" class="form-control" name="articleHeadline" [(ngModel)]="postData.articleHeadline" [ngModelOptions]="{updateOn:'submit'}"/>
                                 </li>
+                                <li class="list-group-item"><label>articleSnippet</label>
+                                    <span class="readContent">{{postData.articleSnippet}}</span>
+                                    <input type="text" class="form-control" name="articleSnippet" [(ngModel)]="postData.articleSnippet" [ngModelOptions]="{updateOn:'submit'}"/>
+                                </li>
                                 <li class="list-group-item"><label>location Code</label>
                                     <span class="readContent">{{postData.locationCode}}</span>
                                     <input type="text" class="form-control" name="locationCode" [(ngModel)]="postData.locationCode" [ngModelOptions]="{updateOn:'submit'}"/>
                                 </li>
                                 <li class="list-group-item"><label>Text</label>
                                     <span class="readContent">{{postData.text}}</span>
-                                    <textarea  class="input" class="form-control" name="text" [(ngModel)]="postData.modifiedText"></textarea>
+                                    <textarea style = "width:100%" class="input" class="form-control" name="text" [(ngModel)]="postData.modifiedText"></textarea>
                                 </li>
                                 <li class="list-group-item"><label>reading Time</label>
                                     <span class="readContent">{{postData.readingTime}}</span>
@@ -60,7 +64,7 @@
                     </div>
                 <div class="col-md-6">
                     <div [ngClass]="{'editState':editState.image}">
-                        <form *ngIf="postData.images_key" #o="ngForm" (ngSubmit)="uploadImage()">
+                        <form *ngIf="postData" #o="ngForm" (ngSubmit)="uploadImage()">
                             <ul class="list-group">
                                 <li class="list-group-item  panel-heading">
                                     <div class="row">

@@ -42,7 +42,7 @@ export class SeePostInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.url = this.s3.getObj(this.imageData.images_key);
+    this.url = this.imageData.images_key ?  this.s3.getObj(this.imageData.images_key) : null;
   }
 
   selectImage(event) {

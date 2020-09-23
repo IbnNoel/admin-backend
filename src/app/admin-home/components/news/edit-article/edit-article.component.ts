@@ -16,7 +16,7 @@ export class EditArticleComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.editFormGroup = this.formBuilder.group({
       _id: [''],
-      userId: ['', Validators.required],
+      articleSnippet: ['', Validators.required],
       articleHeadline: ['', Validators.required]
      });
    }

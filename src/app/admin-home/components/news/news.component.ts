@@ -59,6 +59,12 @@ export class NewsComponent implements OnInit {
         header: 'Article Head Line',
         responsivePriority: true
       },
+      {
+        key: 'articleSnippet',
+        className: 'data_grid_left_align',
+        header: 'Article Snippet',
+        responsivePriority: true
+      },
       { 
         header: 'Added',
         key: 'added',
@@ -122,7 +128,7 @@ export class NewsComponent implements OnInit {
         const component = viewContainerRef.createComponent(componentResolve);
         component.instance.editFormGroup.patchValue({
           _id: rowData._id,
-          userId: rowData.userId,
+          articleSnippet: rowData.articleSnippet,
           articleHeadline: rowData.articleHeadline
         });
         component.instance.update.subscribe(event => {
@@ -130,6 +136,7 @@ export class NewsComponent implements OnInit {
             .pipe(filter((data: any) => data.success === true))
             .subscribe((data) => {
               rowData.articleHeadline = component.instance.editFormGroup.value.articleHeadline;
+              rowData.articleSnippet = component.instance.editFormGroup.value.articleSnippet;
               this.generalSettings.UpddateRow({ id: rowData._id, propertyName: '_id' }, rowData);
             });
           this.expansionSettings.CollapseGrid({ id: rowData._id, propertyName: '_id' });

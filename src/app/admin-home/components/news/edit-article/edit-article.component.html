@@ -1,13 +1,14 @@
 <div class="well">
     <form [formGroup]="editFormGroup" (ngSubmit)="updateArticleHeadLine()">
         <div class="row">
-            <div class="col-sm-4 form-group">
-                <label>{{'AUTHOR' | translate}}</label>
-                <input class="form-control" formControlName='userId'>
-            </div>
+            
             <div class="col-sm-4 form-group">
                 <label>{{'ARTICLE_HEADLINE' | translate}}</label>
                 <input class="form-control" formControlName='articleHeadline'>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label>{{'ArticleSnippet' | translate}}</label>
+                <input class="form-control" formControlName='articleSnippet'>
             </div>
         </div>
         <div class="row">
