@@ -15,12 +15,12 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="btn btn-default" (click)="addPost()">{{'ADD_POST' | translate}}</button>
                         <button type="submit" class="button btn btn-primary pull-right">{{'SEARCH' | translate}}</button>
                     </div>
                 </div>
             </div>
         </form>
+        <button class="btn btn-default pull-right" (click)="addPost()">{{'ADD_POST' | translate}}</button>
         <app-data-table [Columns]="colDefinitions" [Data]='data' [(GeneralSettings)]="generalSettings"
             [ExpansionSettings]="expansionSettings" [PageSettings]="pageSettings"></app-data-table>
     </div>

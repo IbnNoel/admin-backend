@@ -89,7 +89,7 @@ export class NewsComponent implements OnInit {
     //   this.deleteUserInfo(data._id);
     // });
     const seePostInfo = new ActionButton();
-    seePostInfo.label = 'See More Info';
+    seePostInfo.label = 'Edit';
     seePostInfo.data = rowData;
     seePostInfo.action = (data) => {
     this.router.navigate([`admin/seePostInfo`, data]);
@@ -100,7 +100,7 @@ export class NewsComponent implements OnInit {
     editInfo.action = (data) => {
       this.expansionSettings.ExpandGrid({id: data._id, propertyName: '_id'});
     };
-    menu.buttons.push(editInfo, seePostInfo, deleteButton);
+    menu.buttons.push(seePostInfo, deleteButton);
     return menu;
   }
 

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { PropertyNewsService } from 'src/app/shared/services/property-news.service';
 import { AppState } from 'src/app/state/models/app-state-models';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-create-post',
@@ -23,7 +24,7 @@ export class CreatePostComponent implements OnInit {
   userId: string;
   languages$: Observable<Array<any>>;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, 
+  constructor(private formBuilder: FormBuilder, private router: Router,  private location: Location,
               private store: Store<AppState>, private newsService: PropertyNewsService) { }
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class CreatePostComponent implements OnInit {
     this.firstFormGroup = this.formBuilder.group({
       userId: [this.userId || ''],
       articleHeadline: ['', Validators.required],
+      articleSnippet: ['', Validators.required],
       text: ['', Validators.required],
       readingTime: ['', Validators.required],
     });
@@ -63,10 +65,15 @@ export class CreatePostComponent implements OnInit {
     sendFormData.append('articleHeadline', this.firstFormGroup.get('articleHeadline').value);
     sendFormData.append('readingTime', this.firstFormGroup.get('readingTime').value);
     sendFormData.append('text', this.firstFormGroup.get('text').value);
+    sendFormData.append('articleSnippet', this.firstFormGroup.get('articleSnippet').value);
     sendFormData.append('locationCode', this.secondFormGroup.get('locationCode').value);
     sendFormData.append('language', this.secondFormGroup.get('language').value);
 
     this.newsService.createPost(sendFormData)
     .subscribe(Data => console.log(Data));
+  }
+
+  backButton() {
+    this.location.back();
   }
 }
