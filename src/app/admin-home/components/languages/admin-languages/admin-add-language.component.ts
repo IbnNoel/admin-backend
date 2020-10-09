@@ -138,7 +138,7 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(value?) {
-    (value)? this.pageSettings.currentPage=1: this.pageSettings.currentPage; 
+    (value) ? this.pageSettings.currentPage=1: this.pageSettings.currentPage; 
 
     let pg = this.pageSettings.currentPage - 1;    
     let pgS = this.pageSettings.pageSize;

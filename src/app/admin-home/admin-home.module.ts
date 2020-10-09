@@ -22,6 +22,8 @@ import { NewsComponent } from './components/news/news.component';
 import { EditArticleComponent } from './components/news/edit-article/edit-article.component';
 import { SeePostInfoComponent } from './components/news/see-post-info/see-post-info.component';
 import { CreatePostComponent } from './news/create-post/create-post.component';
+import { TownsComponent } from './components/properties/towns/towns.component';
+import { EditCountryComponent } from './components/properties/towns/edit-country/edit-country.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { CreatePostComponent } from './news/create-post/create-post.component';
     NewsComponent,
     EditArticleComponent,
     SeePostInfoComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    TownsComponent,
+    EditCountryComponent
   ],
   imports: [
     SharedModule,
@@ -71,6 +75,8 @@ import { CreatePostComponent } from './news/create-post/create-post.component';
           { path: 'propertyNews', component: NewsComponent},
           { path: 'seePostInfo', component: SeePostInfoComponent },
           { path: 'createPost', component: CreatePostComponent },
+          { path: 'towns', component: TownsComponent },
+          { path: 'edit-country', component: EditCountryComponent },
         ]
     }
     ])
