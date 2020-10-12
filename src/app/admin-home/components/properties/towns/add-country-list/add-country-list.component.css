@@ -1,0 +1,8 @@
+.your-class input{
+    float:left;
+  }
+
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+  }

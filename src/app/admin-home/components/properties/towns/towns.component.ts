@@ -114,4 +114,7 @@ export class TownsComponent implements OnInit {
     return menu;
   }
 
+  addCountryList() {
+    this.router.navigate(['admin/add-country-list']);
+  }
 }

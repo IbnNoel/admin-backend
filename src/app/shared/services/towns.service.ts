@@ -18,4 +18,9 @@ export class TownsService {
   editCountryData(editObj) {
     return this.http.patch(`${this.baseURL}/editTowns/${editObj._id}`, editObj);
   }
+
+  addCountryData(editObj) {
+    return this.http.post(`${this.baseURL}/createTownsList/`, editObj);
+  }
+
 };

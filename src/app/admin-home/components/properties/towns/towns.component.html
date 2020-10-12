@@ -16,6 +16,13 @@
                 </div>
             </div>
         </form>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                        <div class="pull-right">
+                            <button class="btn btn-default pull-right" (click)="addCountryList()">{{'ADD_COUNTRY' | translate}}</button>
+                </div>
+            </div>
+        </div>
         <app-data-table [Columns]="colDefinitions" [Data]='data' [(GeneralSettings)]="generalSettings"
             [ExpansionSettings]="expansionSettings" [PageSettings]="pageSettings"></app-data-table>
     </div>

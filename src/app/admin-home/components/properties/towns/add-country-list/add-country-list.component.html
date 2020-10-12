@@ -1,0 +1,53 @@
+<div class="main_content">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3 class="panel-heading">{{'TOWN_LIST_DETAILS' | translate}}</h3>
+                <form [formGroup]="firstFormGroup" #f="ngForm" (ngSubmit)="submitTownList()">
+                    <div>
+                        <label><b> {{'COUNTRY' | translate}} </b></label><br>
+                        <input class="form-control" formControlName="country" type="text" placeholder="Enter the name of the country "required>
+                        <br>
+                    </div>
+                    <div>
+                        <label><b> {{'TownList: ' | translate}} </b></label><br>
+                        <a class="glyphicon glyphicon-plus btn btn-primary pull-left" (click)="changeListLength('plus')"></a>
+                        <a class="glyphicon glyphicon-minus btn btn-default pull-right" (click)="changeListLength('minus')"></a>
+                        <br>
+                        <br>
+                        <br>
+                        <table class="center">
+                            <tr class="Center Align">
+                                <th>Name</th>
+                                <th>Longitude</th>
+                                <th>Latitude</th>
+                                <th>Population</th>
+                            </tr>
+                            <tr *ngFor="let controls of list.controls; index as i">
+                                <ng-container [formGroup]="controls" #controls="ngForm">
+                                    <td><input class="form-control" class="float-form-control" formControlName="name" type="text" placeholder="Enter name of the city"  required></td>
+                                    <td><input class="form-control" class="float-form-control" formControlName="longitude" type="text" placeholder="Enter name of the longitude of the city"  required></td>
+                                    <td><input class="form-control" class="float-form-control" formControlName="latitude" type="text" placeholder="Enter name of the latitude of the city"  required></td>
+                                    <td><input class="form-control" class="float-form-control" formControlName="pop"  type="text" placeholder="Enter name of the population"  required></td>
+                                </ng-container>
+                            </tr>
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right"
+                      [disabled]="!validValue()" >{{'SUBMIT' | translate}}</button>
+                    <button type="button" class="btn btn-default pull-left"
+                        (click)="backButton()">{{'BACK' | translate}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <ng-container [formGroup]="controls">
+    <input class="float-form-control" formControlName="name" type="text" placeholder="Enter name of the city"  required>
+    <input class="float-form-control" formControlName="longitude" type="text" placeholder="Enter name of the location of the city"  required>
+    <input class="float-form-control" formControlName="latitude" type="text" placeholder="Enter name of the location of the city"  required>
+    <input class="float-form-control" formControlName="pop"  type="text" placeholder="Enter name of the population"  required>
+</ng-container> -->
