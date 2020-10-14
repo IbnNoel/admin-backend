@@ -51,7 +51,40 @@
                             </ul>
                         </form>
                     </div>
-                    </div>
+                </div>
+                <!-- <div class="col-md-6">
+                    <form *ngIf="countryData._id" [formGroup]="newTownFormGroup" #f2="ngForm" (ngSubmit)="submitEditcountryData()"
+                        [ngClass]="{'editState':editState.list}">
+                        <ul class="list-group">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i></i>Local</h5>
+                                        <a type="button" class="glyphicon glyphicon-pencil btn btn-primary pull-right"
+                                            (click)="editState.list = !editState.list"></a>                                            
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item"><label>Town list</label>
+                                <span class="readContent">{{countryData.list.length}}</span>
+                                            <span class="readContent">{{newTownFormGroup.controls.name.value || 'name of the city'}}</span>
+                                            <input class="form-control" class="float-form-control" formControlName="name" type="text" placeholder="Enter name of the city"  required>
+                                            <input class="form-control" class="float-form-control" formControlName="longitude" type="text" placeholder="Enter name of the longitude of the city"  required>
+                                            <input class="form-control" class="float-form-control" formControlName="latitude" type="text" placeholder="Enter name of the latitude of the city"  required>
+                                            <input class="form-control" class="float-form-control" formControlName="pop"  type="text" placeholder="Enter name of the population"  required>
+                            </li>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.list = !editState.list"
+                                            class="btn btn-default pull-left">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div> -->
             </div>
             <div class="row">
                 <div class="col-md-12">

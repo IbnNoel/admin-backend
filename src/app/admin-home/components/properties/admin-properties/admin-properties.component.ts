@@ -160,7 +160,7 @@ export class AdminPropertiesComponent implements OnInit {
       this.deleteRefData(data);
     });
     const viewButton = new ActionButton();
-    viewButton.label = 'VIEW-REFDATA';
+    viewButton.label = 'VIEW_REFDATA_INFO';
     viewButton.data = rowData;
     viewButton.action = (data => {
       let params = data;
@@ -170,7 +170,7 @@ export class AdminPropertiesComponent implements OnInit {
       params = {...params, local, priceList, rentPeriod};
       this.router.navigate([`admin/editRefData`, params]);
     });
-    menu.buttons.push(editRefData, deleteButton, viewButton);
+    menu.buttons.push(deleteButton, viewButton);
     return menu;
   };
 
