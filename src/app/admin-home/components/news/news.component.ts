@@ -27,10 +27,10 @@ export class NewsComponent implements OnInit {
   searchFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private router: Router,
-              private newsService: PropertyNewsService, public CFR: ComponentFactoryResolver) {
-                this.setUpColumnDefintion();
-                this.expansionSettings = this.setupExpansionSettings();
-                this.setUppageSettings();
+    private newsService: PropertyNewsService, public CFR: ComponentFactoryResolver) {
+    this.setUpColumnDefintion();
+    this.expansionSettings = this.setupExpansionSettings();
+    this.setUppageSettings();
   }
 
   ngOnInit(): void {
@@ -54,18 +54,18 @@ export class NewsComponent implements OnInit {
         className: 'data_grid_left_align',
       },
       {
-        key: 'articleHeadline',
+        key: 'articleHeadline.en',
         className: 'data_grid_left_align',
         header: 'Article Head Line',
         responsivePriority: true
       },
       {
-        key: 'articleSnippet',
+        key: 'articleSnippet.en',
         className: 'data_grid_left_align',
         header: 'Article Snippet',
         responsivePriority: true
       },
-      { 
+      {
         header: 'Added',
         key: 'added',
         formatter: (data, type, row) => {
@@ -92,13 +92,17 @@ export class NewsComponent implements OnInit {
     seePostInfo.label = 'Edit';
     seePostInfo.data = rowData;
     seePostInfo.action = (data) => {
-    this.router.navigate([`admin/seePostInfo`, data]);
+      const articleHeadline = JSON.stringify(data.articleHeadline);
+      const text = JSON.stringify(data.text);
+      const articleSnippet = JSON.stringify(data.articleSnippet);
+      data = { ...data, articleHeadline, articleSnippet, text };
+      this.router.navigate([`admin/seePostInfo`, data]);
     };
     const editInfo = new ActionButton();
     editInfo.label = 'Edit HeadLine';
     editInfo.data = rowData;
     editInfo.action = (data) => {
-      this.expansionSettings.ExpandGrid({id: data._id, propertyName: '_id'});
+      this.expansionSettings.ExpandGrid({ id: data._id, propertyName: '_id' });
     };
     menu.buttons.push(seePostInfo, deleteButton);
     return menu;
@@ -117,6 +121,7 @@ export class NewsComponent implements OnInit {
     this.newsService.getDataTable(pg, pgS, this.searchFormGroup.getRawValue()).subscribe(data => {
       this.pageSettings.setTotalRecords(data.total);
       this.data.next(data.data);
+      console.log(data.data);
     });
   }
 

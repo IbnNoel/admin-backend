@@ -7,6 +7,9 @@ import * as _ from 'lodash';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.prod';
 import { AwsService } from 'src/app/admin-home/services/aws.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/models/app-state-models';
 
 @Component({
   selector: 'app-see-post-info',
@@ -21,6 +24,7 @@ export class SeePostInfoComponent implements OnInit {
   };
 
   postData: any;
+  originalData: any;
   imageData: any;
   selectedImage: any;
   imageFormData: any;
@@ -28,21 +32,38 @@ export class SeePostInfoComponent implements OnInit {
   modifiedurl;
   msg = '';
   disabledButton = true;
+  languages$: Observable<Array<any>>;
+  selectedPostLang = 'en';
 
-  constructor(private route: ActivatedRoute, private _location: Location, 
+  constructor(private route: ActivatedRoute, private _location: Location, private store: Store<AppState>,
               private postService: PropertyNewsService, private s3: AwsService) {
+    this.languages$ = this.store.select(store => store.language.list);
     this.route.params.pipe(take(1)).subscribe(data => {
-      this.postData = _.cloneDeep(data);
+
       const featured = (data.featured === 'true') ? true : false;
       const approved = (data.approved === 'true') ? true : false;
-      const modifiedText = data.text;
-      this.imageData = _.cloneDeep(data);
+
+      const articleHeadline = JSON.parse(data.articleHeadline);
+      const text = JSON.parse(data.text);
+      const articleSnippet = JSON.parse(data.articleSnippet);
+      const modifiedText = text;
+
+      const parsedData = { ..._.cloneDeep(data), articleHeadline, articleSnippet, text, approved, featured, modifiedText };
+      this.postData = _.cloneDeep(parsedData);
+      this.imageData = _.cloneDeep(parsedData);
+
       this.postData = { ...this.postData, approved, featured, modifiedText };
+
+      this.originalData = _.cloneDeep(parsedData);
     });
   }
 
   ngOnInit(): void {
-    this.url = this.imageData.images_key ?  this.s3.getObj(this.imageData.images_key) : null;
+    this.url = this.imageData.images_key ? this.s3.getObj(this.imageData.images_key) : null;
+    this.postData.articleHeadline = this.originalData.articleHeadline[this.selectedPostLang];
+    this.postData.articleSnippet = this.originalData.articleSnippet[this.selectedPostLang];
+    this.postData.text = this.originalData.text[this.selectedPostLang];
+    this.postData.modifiedText = this.originalData.modifiedText[this.selectedPostLang];
   }
 
   selectImage(event) {
@@ -73,15 +94,15 @@ export class SeePostInfoComponent implements OnInit {
   }
 
   getImageUrl() {
-   let url = this.url ? this.url : environment.awsS3 + this.imageData.images_key;
-  //  let url = this.url ? this.url : this.s3.getObj(this.imageData.images_key);
-   return url;
+    let url = this.url ? this.url : environment.awsS3 + this.imageData.images_key;
+    //  let url = this.url ? this.url : this.s3.getObj(this.imageData.images_key);
+    return url;
   }
 
   submitPostData() {
     this.editState.post = false;
     this.postData.text = this.postData.modifiedText;
-    this.postService.editPost(this.postData)
+    this.postService.editPost(this.postData, this.selectedPostLang)
       .subscribe(Data => console.log(Data));
   }
 
@@ -92,14 +113,22 @@ export class SeePostInfoComponent implements OnInit {
     imageFormData.append('file', this.selectedImage);
     imageFormData.append('_id', this.imageData._id);
     this.postService.uploadImage(imageFormData)
-    .subscribe((data: any) => {
-      this.imageData.images_key = data.data.images_key;
-      console.log(data);
-    });
+      .subscribe((data: any) => {
+        this.imageData.images_key = data.data.images_key;
+        console.log(data);
+      });
   }
 
   backButton() {
     this._location.back();
+  }
+
+  clickLang() {
+    console.log(this.selectedPostLang)
+    this.postData.articleHeadline = this.originalData.articleHeadline[this.selectedPostLang];
+    this.postData.articleSnippet = this.originalData.articleSnippet[this.selectedPostLang];
+    this.postData.text = this.originalData.text[this.selectedPostLang];
+    this.postData.modifiedText = this.originalData.modifiedText[this.selectedPostLang];
   }
 
 }

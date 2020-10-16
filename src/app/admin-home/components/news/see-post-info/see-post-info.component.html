@@ -10,7 +10,11 @@
                                 <li class="list-group-item  panel-heading">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h5><i></i>Post</h5>
+                                            <h5><i></i>Post info in: </h5>
+                                            
+                                            <select (change)="clickLang()" name="selectedPostLang" [(ngModel)]="selectedPostLang">
+                                                <option *ngFor="let lang of (languages$ | async)" [selected]="lang === selectedPostLang" [ngValue]="lang">{{lang}}</option>
+                                            </select>
                                             <a class="glyphicon glyphicon-pencil btn btn-primary pull-right"
                                                 (click)="editState.post = !editState.post"></a>
                                         </div>
@@ -18,7 +22,7 @@
                                 </li>
 
                                 <li class="list-group-item"><label>articleHeadline</label>
-                                    <span class="readContent">{{postData.articleHeadline}}</span>
+                                    <span class="readContent" *ngIf="selectedPostLang" >{{postData.articleHeadline}}</span>
                                     <input type="text" class="form-control" name="articleHeadline" [(ngModel)]="postData.articleHeadline" [ngModelOptions]="{updateOn:'submit'}"/>
                                 </li>
                                 <li class="list-group-item"><label>articleSnippet</label>

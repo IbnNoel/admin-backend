@@ -8,6 +8,17 @@
                 <mat-step [stepControl]="firstFormGroup">
                 <form [formGroup]="firstFormGroup">
                     <ng-template matStepLabel>display information</ng-template>
+                     <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">language: </label><br>
+                                <select name="language" formControlName="language">
+                                    <option *ngFor="let language of languages$ | async" [ngValue]="language">{{language | translate}}</option>
+                                </select>
+                                <div *ngIf="(firstFormGroup.controls.language.touched) && firstFormGroup.controls.language.errors">
+                                <span *ngIf="firstFormGroup.controls.language.invalid" class="msg-error">Error</span>
+                                </div>
+                            </div>
+                        </div>
                     <div class="row">
                         <div class="form-group col-md-4 required">
                             <label class="control-label">Article Headline</label>
@@ -57,22 +68,10 @@
                      <form *ngIf="secondFormGroup" [formGroup]="secondFormGroup">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="control-label">language: </label><br>
-                                <select name="language" formControlName="language">
-                                    <option *ngFor="let language of languages$ | async" [ngValue]="language">{{language | translate}}</option>
-                                </select>
-                                <div *ngIf="(secondFormGroup.controls.language.touched) && secondFormGroup.controls.language.errors">
-                                <span *ngIf="secondFormGroup.controls.language.invalid" class="msg-error">Error</span>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div class="form-group col-md-4">
                                 <label class="control-label">images</label>
                                 <input type="file"  name="images" formControlName="images" (change)="selectImage($event)" class="form-control"/>
-                                <div *ngIf="(secondFormGroup.controls.language.touched) && secondFormGroup.controls.language.errors">
-                                <span *ngIf="secondFormGroup.controls.language.invalid" class="msg-error">Error</span></div>
+                                <div *ngIf="(secondFormGroup.controls.images.touched) && secondFormGroup.controls.images.errors">
+                                <span *ngIf="secondFormGroup.controls.images.invalid" class="msg-error">Error</span></div>
                             </div>
                         </div>
                         <div class="row">
