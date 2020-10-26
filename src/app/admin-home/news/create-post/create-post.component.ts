@@ -27,8 +27,29 @@ export class CreatePostComponent implements OnInit {
 
   selectedLanguage = 'en';
 
+  newPostValidation = {
+    'language': [
+      { type: 'required', message: 'language is required' }
+    ],
+    'articleHeadline': [
+      { type: 'required', message: 'Article Headline is required' }
+    ],
+    'text': [
+      { type: 'required', message: 'Text is required' }
+    ],
+    'readingTime': [
+      { type: 'required', message: 'reding time is required' }
+    ],
+    'images': [
+      { type: 'required', message: 'images is required' }
+    ],
+    'locationCode': [
+      { type: 'required', message: 'location code is required' }
+    ]
+  }
+
   constructor(private formBuilder: FormBuilder, private router: Router, private location: Location,
-    private store: Store<AppState>, private newsService: PropertyNewsService) { }
+              private store: Store<AppState>, private newsService: PropertyNewsService) { }
 
   ngOnInit(): void {
     this.store.select(store => store.language.list)
@@ -53,7 +74,7 @@ export class CreatePostComponent implements OnInit {
       language: ['', Validators.required]
     });
     this.secondFormGroup = this.formBuilder.group({
-      images: [''],
+      images: ['', Validators.required],
       locationCode: ['', Validators.required],
     });
   }
@@ -64,7 +85,10 @@ export class CreatePostComponent implements OnInit {
       this.selectedImage = file;
     }
   }
-
+  next() {
+    console.log(this.firstFormGroup);
+    console.log(this.secondFormGroup);
+  }
   selectLanguage(language) {
     this.secondFormGroup.patchValue({
       'language': language
@@ -75,17 +99,16 @@ export class CreatePostComponent implements OnInit {
     const sendFormData = new FormData();
     sendFormData.append('file', this.selectedImage);
     sendFormData.append('userId', this.firstFormGroup.get('userId').value);
-    
+
     sendFormData.append(`articleHeadline`, this.languageFormData.get('articleHeadLine'));
     sendFormData.append(`articleHeadline[${this.selectedLanguage}]`, this.firstFormGroup.get('articleHeadline').value);
-    
-    
+
     sendFormData.append(`text`, this.languageFormData.get('text'));
     sendFormData.append(`text[${this.selectedLanguage}]`, this.firstFormGroup.get('text').value);
-    
+
     sendFormData.append(`articleSnippet`, this.languageFormData.get('articleSnippet'));
     sendFormData.append(`articleSnippet[${this.selectedLanguage}]`, this.firstFormGroup.get('articleSnippet').value);
-    
+
     sendFormData.append('locationCode', this.secondFormGroup.get('locationCode').value);
     sendFormData.append('language', this.firstFormGroup.get('language').value);
     sendFormData.append('readingTime', this.firstFormGroup.get('readingTime').value);
@@ -99,4 +122,9 @@ export class CreatePostComponent implements OnInit {
   backButton() {
     this.location.back();
   }
+
+  getErrorMessage(input) {
+    console.log(input);
+  }
+
 }
