@@ -11,10 +11,12 @@
                     <div class="row">
                         <div class="form-group col-md-4 required">
                             <label class="control-label">Local</label>
-                            <input type="text" name="firstName" formControlName="local" class="form-control"/>
+                            <input type="text" name="local" formControlName="local" class="form-control"/>
                             <div *ngIf="(firstFormGroup.controls.local.touched) && firstFormGroup.controls.local.errors">
-                            <span *ngIf="firstFormGroup.controls.local.invalid" class="msg-error">Error</span>
-                            </div>
+                                <ng-container *ngFor="let validation of newPostValidation.local">
+                                    <span class="msg-error" *ngIf="firstFormGroup.get('local').hasError(validation.type) && (firstFormGroup.get('local').dirty || firstFormGroup.get('local').touched)">{{validation.message}}</span>
+                                </ng-container>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
@@ -22,8 +24,10 @@
                             <label class="control-label">Description</label>
                             <input type="text" formControlName="description" class="form-control"/>
                             <div *ngIf="(firstFormGroup.controls.description.touched) && firstFormGroup.controls.description.errors">
-                            <span *ngIf="firstFormGroup.controls.description.invalid" class="msg-error">Error</span>
-                            </div>
+                                <ng-container *ngFor="let validation of newPostValidation.description">
+                                    <span class="msg-error" *ngIf="firstFormGroup.get('description').hasError(validation.type) && (firstFormGroup.get('description').dirty || firstFormGroup.get('description').touched)">{{validation.message}}</span>
+                                </ng-container>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
@@ -31,8 +35,10 @@
                             <label class="control-label">Short Date Format</label>
                             <input type="text" name="shortDateFormat" formControlName="shortDateFormat" class="form-control"/>
                             <div *ngIf="(firstFormGroup.controls.shortDateFormat.touched) && firstFormGroup.controls.shortDateFormat.errors">
-                            <span *ngIf="firstFormGroup.controls.shortDateFormat.invalid" class="msg-error">Error</span>
-                            </div>
+                                <ng-container *ngFor="let validation of newPostValidation.shortDateFormat">
+                                    <span class="msg-error" *ngIf="firstFormGroup.get('shortDateFormat').hasError(validation.type) && (firstFormGroup.get('shortDateFormat').dirty || firstFormGroup.get('shortDateFormat').touched)">{{validation.message}}</span>
+                                </ng-container>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
@@ -40,17 +46,10 @@
                             <label class="control-label">Long Date Format</label>
                             <input type="text" name="longDateFormat" formControlName="longDateFormat" class="form-control"/>
                             <div *ngIf="(firstFormGroup.controls.longDateFormat.touched) && firstFormGroup.controls.longDateFormat.errors">
-                            <span *ngIf="firstFormGroup.controls.longDateFormat.invalid" class="msg-error">Error</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Long Date Format</label>
-                            <input type="text" name="longDateFormat" formControlName="longDateFormat" class="form-control"/>
-                            <div *ngIf="(firstFormGroup.controls.longDateFormat.touched) && firstFormGroup.controls.longDateFormat.errors">
-                            <span *ngIf="firstFormGroup.controls.longDateFormat.invalid" class="msg-error">Error</span>
-                            </div>
+                                <ng-container *ngFor="let validation of newPostValidation.longDateFormat">
+                                    <span class="msg-error" *ngIf="firstFormGroup.get('longDateFormat').hasError(validation.type) && (firstFormGroup.get('longDateFormat').dirty || firstFormGroup.get('longDateFormat').touched)">{{validation.message}}</span>
+                                </ng-container>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
@@ -58,8 +57,10 @@
                             <label class="control-label">Time Format</label>
                             <input type="text" name="timeFormat" formControlName="timeFormat" class="form-control"/>
                             <div *ngIf="(firstFormGroup.controls.timeFormat.touched) && firstFormGroup.controls.timeFormat.errors">
-                            <span *ngIf="firstFormGroup.controls.timeFormat.invalid" class="msg-error">Error</span>
-                            </div>
+                                <ng-container *ngFor="let validation of newPostValidation.timeFormat">
+                                    <span class="msg-error" *ngIf="firstFormGroup.get('timeFormat').hasError(validation.type) && (firstFormGroup.get('timeFormat').dirty || firstFormGroup.get('timeFormat').touched)">{{validation.message}}</span>
+                                </ng-container>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
@@ -67,8 +68,10 @@
                             <label class="control-label">Decimal Format</label>
                             <input type="text" name="decimalFormat" formControlName="decimalFormat" class="form-control"/>
                             <div *ngIf="(firstFormGroup.controls.decimalFormat.touched) && firstFormGroup.controls.decimalFormat.errors">
-                            <span *ngIf="firstFormGroup.controls.decimalFormat.invalid" class="msg-error">Error</span>
-                            </div>
+                                <ng-container *ngFor="let validation of newPostValidation.decimalFormat">
+                                    <span class="msg-error" *ngIf="firstFormGroup.get('decimalFormat').hasError(validation.type) && (firstFormGroup.get('decimalFormat').dirty || firstFormGroup.get('decimalFormat').touched)">{{validation.message}}</span>
+                                </ng-container>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
@@ -76,13 +79,15 @@
                             <label class="control-label">System Default</label>
                             <input type="text" name="systemDefault" formControlName="systemDefault" class="form-control"/>
                             <div *ngIf="(firstFormGroup.controls.systemDefault.touched) && firstFormGroup.controls.systemDefault.errors">
-                            <span *ngIf="firstFormGroup.controls.systemDefault.invalid" class="msg-error">Error</span>
-                            </div>
+                                <ng-container *ngFor="let validation of newPostValidation.systemDefault">
+                                    <span class="msg-error" *ngIf="firstFormGroup.get('systemDefault').hasError(validation.type) && (firstFormGroup.get('systemDefault').dirty || firstFormGroup.get('systemDefault').touched)">{{validation.message}}</span>
+                                </ng-container>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-primary" matStepperNext>Next</button>
+                            <button [disabled]="firstFormGroup.invalid" class="btn btn-primary" matStepperNext>Next</button>
                         </div>
                     </div>
                 </form>
@@ -116,8 +121,12 @@
                                   </mat-form-field>
                                 <div
                                     *ngIf="(thirdFormGroup.controls.saleRange.touched) && thirdFormGroup.controls.saleRange.errors">
-                                    <span *ngIf="thirdFormGroup.controls.saleRange.invalid"
-                                        class="msg-error">Error</span>
+                                    <div *ngIf="(thirdFormGroup.controls.saleRange.touched) && thirdFormGroup.controls.saleRange.errors">
+                                        <ng-container *ngFor="let validation of newPostValidation.saleRange">
+                                            <span class="msg-error" *ngIf="thirdFormGroup.get('saleRange').hasError(validation.type)">{{validation.message}}</span>
+                                        </ng-container>
+                                        </div>
+        
                                 </div>
                             </div>
                         </div>
@@ -140,22 +149,23 @@
                                       <input
                                         placeholder="Enter Rent value"
                                         #fruitInput
+                                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
                                         [matChipInputFor]="chipList"
                                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                         (matChipInputTokenEnd)="add($event, 'rent')">
                                     </mat-chip-list>
                                   </mat-form-field>
-                                <div
-                                    *ngIf="(thirdFormGroup.controls.rentRange.touched) && thirdFormGroup.controls.rentRange.errors">
-                                    <span *ngIf="thirdFormGroup.controls.rentRange.invalid"
-                                        class="msg-error">Error</span>
-                                </div>
+                                  <div *ngIf="(thirdFormGroup.controls.rentRange.touched) && thirdFormGroup.controls.rentRange.errors">
+                                    <ng-container *ngFor="let validation of newPostValidation.rentRange">
+                                        <span class="msg-error" *ngIf="thirdFormGroup.get('rentRange').hasError(validation.type) && (thirdFormGroup.get('rentRange').dirty || thirdFormGroup.get('rentRange').touched)">{{validation.message}}</span>
+                                    </ng-container>
+                                    </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <button class="btn btn-default" matStepperPrevious>Back</button>
-                            <button class="btn btn-primary" matStepperNext>Next</button>
+                            <button class="btn btn-primary" matStepperNext [disabled]="thirdFormGroup.invalid">Next</button>
                             </div>
                         </div>
                     </form>
@@ -168,8 +178,10 @@
                             <label class="control-label">Country</label>
                             <input type="text" name="country" formControlName="country" class="form-control"/>
                             <div *ngIf="(secondFormGroup.controls.country.touched) && secondFormGroup.controls.country.errors">
-                            <span *ngIf="secondFormGroup.controls.country.invalid" class="msg-error">Error</span>
-                            </div>
+                                <ng-container *ngFor="let validation of newPostValidation.country">
+                                    <span class="msg-error" *ngIf="secondFormGroup.get('country').hasError(validation.type) && (secondFormGroup.get('country').dirty || secondFormGroup.get('country').touched)">{{validation.message}}</span>
+                                </ng-container>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
@@ -177,23 +189,49 @@
                             <label class="control-label">Currency Code</label>
                             <input type="text" name="currencyCode" formControlName="currencyCode" class="form-control"/>
                             <div *ngIf="(secondFormGroup.controls.currencyCode.touched) && secondFormGroup.controls.currencyCode.errors">
-                            <span *ngIf="secondFormGroup.controls.currencyCode.invalid" class="msg-error">Error</span>
-                            </div>
+                                <ng-container *ngFor="let validation of newPostValidation.currencyCode">
+                                    <span class="msg-error" *ngIf="secondFormGroup.get('currencyCode').hasError(validation.type) && (secondFormGroup.get('currencyCode').dirty || secondFormGroup.get('currencyCode').touched)">{{validation.message}}</span>
+                                </ng-container>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Rent Period</label>
-                            <input type="text" name="rentPeriod" formControlName="rentPeriod" class="form-control"/>
-                            <div *ngIf="(secondFormGroup.controls.rentPeriod.touched) && secondFormGroup.controls.rentPeriod.errors">
-                            <span *ngIf="secondFormGroup.controls.rentPeriod.invalid" class="msg-error">Error</span>
-                            </div>
-                        </div>
+                                <div class="form-group col-md-4 required">
+                                    <label class="control-label">Rent Period</label>
+                                    <mat-form-field class="example-chip-list">
+                                        <mat-chip-list 
+                                        #rentPeriodList
+                                        formControlName="rentPeriod"
+                                        aria-label="Fruit selection">
+                                          <mat-chip 
+                                            *ngFor="let data of secondFormGroup.value.rentPeriod"
+                                            [selectable]="selectable"
+                                            [removable]="removable"
+                                            (removed)="remove(data, 'rentPeriod')">
+                                            {{data}}
+                                            <mat-icon matChipRemove *ngIf="removable">x</mat-icon>
+                                          </mat-chip>
+                                          <input
+                                            placeholder="Enter Rent Priod"
+                                            #fruitInput
+                                            [matChipInputFor]="rentPeriodList"
+                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                            (matChipInputTokenEnd)="add($event, 'rentPeriod')">
+                                        </mat-chip-list>
+                                      </mat-form-field>
+                                    <div *ngIf="(secondFormGroup.controls.rentPeriod.touched) && secondFormGroup.controls.rentPeriod.errors">
+                                        <div *ngIf="(secondFormGroup.controls.rentPeriod.touched) && secondFormGroup.controls.rentPeriod.errors">
+                                            <ng-container *ngFor="let validation of newPostValidation.rentPeriod">
+                                                <span class="msg-error" *ngIf="secondFormGroup.get('rentPeriod').hasError(validation.type)">{{validation.message}}</span>
+                                            </ng-container>
+                                            </div>
+                                    </div>
+                                </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-default" matStepperPrevious>Back</button>
-                            <button class="btn btn-primary" matStepperNext>Next</button>
+                            <button [disabled]="secondFormGroup.invalid" class="btn btn-primary" matStepperNext>Next</button>
                         </div>
                     </div>
                 </form>
