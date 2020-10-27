@@ -96,7 +96,8 @@ export class NewsComponent implements OnInit {
       const text = JSON.stringify(data.text);
       const articleSnippet = JSON.stringify(data.articleSnippet);
       data = { ...data, articleHeadline, articleSnippet, text };
-      this.router.navigate([`admin/seePostInfo`, data]);
+      data = JSON.stringify(data);
+      this.router.navigate([`admin/seePostInfo`, {'data': data}]);
     };
     const editInfo = new ActionButton();
     editInfo.label = 'Edit HeadLine';

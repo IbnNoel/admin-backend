@@ -11,7 +11,6 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h5><i></i>Post info in: </h5>
-                                            
                                             <select (change)="clickLang()" name="selectedPostLang" [(ngModel)]="selectedPostLang">
                                                 <option *ngFor="let lang of (languages$ | async)" [selected]="lang === selectedPostLang" [ngValue]="lang">{{lang}}</option>
                                             </select>
@@ -23,23 +22,23 @@
 
                                 <li class="list-group-item"><label>articleHeadline</label>
                                     <span class="readContent" *ngIf="selectedPostLang" >{{postData.articleHeadline}}</span>
-                                    <input type="text" class="form-control" name="articleHeadline" [(ngModel)]="postData.articleHeadline" [ngModelOptions]="{updateOn:'submit'}"/>
+                                    <input required  type="text" class="form-control" name="articleHeadline" [(ngModel)]="postData.articleHeadline" [ngModelOptions]="{updateOn:'submit'}" required required/>
                                 </li>
                                 <li class="list-group-item"><label>articleSnippet</label>
                                     <span class="readContent">{{postData.articleSnippet}}</span>
-                                    <input type="text" class="form-control" name="articleSnippet" [(ngModel)]="postData.articleSnippet" [ngModelOptions]="{updateOn:'submit'}"/>
+                                    <input required  type="text" class="form-control" name="articleSnippet" [(ngModel)]="postData.articleSnippet" [ngModelOptions]="{updateOn:'submit'}" required/>
                                 </li>
                                 <li class="list-group-item"><label>location Code</label>
                                     <span class="readContent">{{postData.locationCode}}</span>
-                                    <input type="text" class="form-control" name="locationCode" [(ngModel)]="postData.locationCode" [ngModelOptions]="{updateOn:'submit'}"/>
+                                    <input required  type="text" class="form-control" name="locationCode" [(ngModel)]="postData.locationCode" [ngModelOptions]="{updateOn:'submit'}" required/>
                                 </li>
                                 <li class="list-group-item"><label>Text</label>
                                     <span class="readContent">{{postData.text}}</span>
-                                    <textarea style = "height:700px" class="input" class="form-control" name="text" [(ngModel)]="postData.modifiedText"></textarea>
+                                    <textarea required  style = "height:700px" class="input" class="form-control" name="text" [(ngModel)]="postData.modifiedText" required></textarea>
                                 </li>
                                 <li class="list-group-item"><label>reading Time</label>
                                     <span class="readContent">{{postData.readingTime}}</span>
-                                    <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" name="readingTime" [(ngModel)]="postData.readingTime" [ngModelOptions]="{updateOn:'submit'}"/>
+                                    <input required  type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" name="readingTime" [(ngModel)]="postData.readingTime" [ngModelOptions]="{updateOn:'submit'}" required/>
                                 </li>
                                 <li class="list-group-item"><label>Approved</label>
                                     <span style='font-size: 25px'
@@ -58,7 +57,7 @@
                                         <div class="col-md-12">
                                             <button (click)="editState.post = !editState.post"
                                                 class="btn btn-default pull-left">Cancel</button>
-                                            <button type="submit" class="btn btn-primary pull-right">Save</button>
+                                            <button [disabled]="o.form.invalid" type="submit" class="btn btn-primary pull-right">Save</button>
                                         </div>
                                     </div>
                                 </li>

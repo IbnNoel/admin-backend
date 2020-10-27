@@ -38,28 +38,27 @@ export class SeePostInfoComponent implements OnInit {
   constructor(private route: ActivatedRoute, private _location: Location, private store: Store<AppState>,
               private postService: PropertyNewsService, private s3: AwsService) {
     this.languages$ = this.store.select(store => store.language.list);
-    this.route.params.pipe(take(1)).subscribe(data => {
+    this.route.params.pipe(take(1)).subscribe((data :any) => {
 
-      const featured = (data.featured === 'true') ? true : false;
-      const approved = (data.approved === 'true') ? true : false;
+      data = JSON.parse(data.data);
 
       const articleHeadline = JSON.parse(data.articleHeadline);
       const text = JSON.parse(data.text);
       const articleSnippet = JSON.parse(data.articleSnippet);
       const modifiedText = text;
 
-      const parsedData = { ..._.cloneDeep(data), articleHeadline, articleSnippet, text, approved, featured, modifiedText };
+      const parsedData = { ..._.cloneDeep(data), articleHeadline, articleSnippet, text, modifiedText };
       this.postData = _.cloneDeep(parsedData);
       this.imageData = _.cloneDeep(parsedData);
 
-      this.postData = { ...this.postData, approved, featured, modifiedText };
+      this.postData = { ...this.postData, modifiedText };
 
       this.originalData = _.cloneDeep(parsedData);
     });
   }
 
   ngOnInit(): void {
-    this.url = this.imageData.images_key ? this.s3.getObj(this.imageData.images_key) : null;
+    this.url = this.imageData.images_key ? this.s3.getObj(this.imageData.images_key[0]) : null;
     this.postData.articleHeadline = this.originalData.articleHeadline[this.selectedPostLang];
     this.postData.articleSnippet = this.originalData.articleSnippet[this.selectedPostLang];
     this.postData.text = this.originalData.text[this.selectedPostLang];
