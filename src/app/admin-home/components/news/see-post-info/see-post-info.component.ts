@@ -36,9 +36,9 @@ export class SeePostInfoComponent implements OnInit {
   selectedPostLang = 'en';
 
   constructor(private route: ActivatedRoute, private _location: Location, private store: Store<AppState>,
-              private postService: PropertyNewsService, private s3: AwsService) {
+    private postService: PropertyNewsService, private s3: AwsService) {
     this.languages$ = this.store.select(store => store.language.list);
-    this.route.params.pipe(take(1)).subscribe((data :any) => {
+    this.route.params.pipe(take(1)).subscribe((data: any) => {
 
       data = JSON.parse(data.data);
 
@@ -81,14 +81,20 @@ export class SeePostInfoComponent implements OnInit {
       this.modifiedurl = 'null';
       return;
     }
-
-    var reader = new FileReader();
-    this.disabledButton = false;
-    reader.readAsDataURL(event.target.files[0]);
-    this.selectedImage = event.target.files[0];
-    reader.onload = (_event) => {
-      this.msg = '';
-      this.modifiedurl = reader.result;
+    if (event.target.files[0].type !== ('image/png' || 'image/jpg')) {
+      this.msg = 'Only images with .jpg or .png are supported';
+      this.modifiedurl = 'null';
+      return;
+      }
+    if (event.target.files[0].type === ('image/png' || 'image/jpg')) {
+      var reader = new FileReader();
+      this.disabledButton = false;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+      reader.onload = (_event) => {
+        this.msg = '';
+        this.modifiedurl = reader.result;
+      }
     }
   }
 
