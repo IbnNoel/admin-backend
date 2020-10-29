@@ -19,11 +19,11 @@
 
                                 <li class="list-group-item"><label>Country</label>
                                     <span class="readContent">{{refDataParams.country}}</span>
-                                    <input type="text" class="form-control" name="country" [(ngModel)]="refDataParams.country" [ngModelOptions]="{updateOn:'submit'}"/>
+                                    <input required type="text" class="form-control" name="country" [(ngModel)]="refDataParams.country" [ngModelOptions]="{updateOn:'submit'}"/>
                                 </li>
                                 <li class="list-group-item"><label>Currency Code</label>
                                     <span class="readContent">{{refDataParams.currencyCode}}</span>
-                                    <input type="text" class="form-control" name="currencyCode" [(ngModel)]="refDataParams.currencyCode" [ngModelOptions]="{updateOn:'submit'}"/>
+                                    <input required type="text" class="form-control" name="currencyCode" [(ngModel)]="refDataParams.currencyCode" [ngModelOptions]="{updateOn:'submit'}"/>
                                 </li>
                                 <li class="list-group-item"><label>Rent Period </label>
                                     <span class="readContent">{{refDataParams.rentPeriod}}</span>

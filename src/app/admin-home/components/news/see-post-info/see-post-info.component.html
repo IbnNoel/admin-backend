@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div [ngClass]="{'editState':editState.post}">
-                        <form *ngIf="postData._id" #o="ngForm" (ngSubmit)="submitPostData()">
+                        <form *ngIf="postData._id" #o="ngForm" (ngSubmit)="submitPostData(o.form)">
                             <ul class="list-group">
                                 <li class="list-group-item  panel-heading">
                                     <div class="row">
@@ -19,7 +19,6 @@
                                         </div>
                                     </div>
                                 </li>
-
                                 <li class="list-group-item"><label>articleHeadline</label>
                                     <span class="readContent" *ngIf="selectedPostLang" >{{postData.articleHeadline}}</span>
                                     <input required  type="text" class="form-control" name="articleHeadline" [(ngModel)]="postData.articleHeadline" [ngModelOptions]="{updateOn:'submit'}" required required/>
@@ -38,7 +37,7 @@
                                 </li>
                                 <li class="list-group-item"><label>reading Time</label>
                                     <span class="readContent">{{postData.readingTime}}</span>
-                                    <input required  type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" name="readingTime" [(ngModel)]="postData.readingTime" [ngModelOptions]="{updateOn:'submit'}" required/>
+                                    <input  type="number" class="form-control" name="readingTime" [(ngModel)]="postData.readingTime" [ngModelOptions]="{updateOn:'submit'}" required/>
                                 </li>
                                 <li class="list-group-item"><label>Approved</label>
                                     <span style='font-size: 25px'
@@ -57,7 +56,7 @@
                                         <div class="col-md-12">
                                             <button (click)="editState.post = !editState.post"
                                                 class="btn btn-default pull-left">Cancel</button>
-                                            <button [disabled]="o.form.invalid" type="submit" class="btn btn-primary pull-right">Save</button>
+                                            <button [disabled]="o.form.invalid || !o.form.touched" type="submit" click="" class="btn btn-primary pull-right">Save</button>
                                         </div>
                                     </div>
                                 </li>

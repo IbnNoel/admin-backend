@@ -104,11 +104,12 @@ export class SeePostInfoComponent implements OnInit {
     return url;
   }
 
-  submitPostData() {
-    this.editState.post = false;
-    this.postData.text = this.postData.modifiedText;
-    this.postService.editPost(this.postData, this.selectedPostLang)
-      .subscribe(Data => console.log(Data));
+  submitPostData(data?) {
+    console.log(data);
+    // this.editState.post = false;
+    // this.postData.text = this.postData.modifiedText;
+    // this.postService.editPost(this.postData, this.selectedPostLang)
+    //   .subscribe(Data => console.log(Data));
   }
 
   uploadImage() {

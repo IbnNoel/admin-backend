@@ -12,6 +12,7 @@
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip>
       <input
+        required
         placeholder="Enter value"
         #fruitInput
         [matChipInputFor]="chipList"

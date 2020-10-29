@@ -66,7 +66,8 @@ export class ViewEditRefDataComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(entity) {
+  onSubmit(entity, value?) {
+    console.log(value);
     this.editState[entity] = false;
     this.refDataParams.rentPeriod = this.refDataParams.rentPeriodModified;
     if (entity === 'refData') {
