@@ -139,7 +139,7 @@ export class AdminComponent {
     });
     menu.buttons.push(assignPrivileges, deleteButton, editUserInfo);
     return menu;
-  };
+  }
 
   setupExpansionSettings() {
     return new ExpansionSettings(false, (viewContainerRef, rowData, row) => {

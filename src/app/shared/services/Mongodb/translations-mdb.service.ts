@@ -5,13 +5,15 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Language } from '../../models/language';
 import { NewWord } from '../../models/newWord';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TranslationsMdbService {
   
-  readonly baseURL = 'https://gas-apiv0.herokuapp.com/translations';
+  readonly baseURL = `${environment.baseUrl}/translations`;
+  // readonly baseURL = 'https://gas-apiv0.herokuapp.com/translations';
   // readonly baseURL = 'http://localhost:3000/translations';
   word : Word;
   translations: Word[];

@@ -25,6 +25,7 @@ import { CreatePostComponent } from './news/create-post/create-post.component';
 import { TownsComponent } from './components/properties/towns/towns.component';
 import { EditCountryComponent } from './components/properties/towns/edit-country/edit-country.component';
 import { AddCountryListComponent } from './components/properties/towns/add-country-list/add-country-list.component';
+import { OwnerComponent } from './components/owner/owner.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AddCountryListComponent } from './components/properties/towns/add-count
     CreatePostComponent,
     TownsComponent,
     EditCountryComponent,
-    AddCountryListComponent
+    AddCountryListComponent,
+    OwnerComponent
   ],
   imports: [
     SharedModule,
@@ -80,6 +82,7 @@ import { AddCountryListComponent } from './components/properties/towns/add-count
           { path: 'towns', component: TownsComponent },
           { path: 'edit-country', component: EditCountryComponent },
           { path: 'add-country-list', component: AddCountryListComponent},
+          { path: 'owner', component: OwnerComponent},
         ]
     }
     ])
