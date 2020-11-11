@@ -14,18 +14,19 @@ import { AdminAddNewLanguageComponent } from './components/languages/add-languag
 import { AddWordComponent } from './components/languages/add-word/add-word.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { PrivilegeComponent } from './components/users/privilege/privilege.component';
-import { AdminPropertiesComponent } from './components/properties/admin-properties/admin-properties.component';
-import { EditRefDataComponent } from './components/properties/edit-ref-data/edit-ref-data.component';
-import { AddCountryComponent } from './components/properties/add-country/add-country.component';
-import { ViewEditRefDataComponent } from './components/properties/view-edit-ref-data/view-edit-ref-data.component';
+import { AdminPropertiesComponent } from './components/refdata/admin-properties/admin-properties.component';
+import { EditRefDataComponent } from './components/refdata/edit-ref-data/edit-ref-data.component';
+import { AddCountryComponent } from './components/refdata/add-country/add-country.component';
+import { ViewEditRefDataComponent } from './components/refdata/view-edit-ref-data/view-edit-ref-data.component';
 import { NewsComponent } from './components/news/news.component';
 import { EditArticleComponent } from './components/news/edit-article/edit-article.component';
 import { SeePostInfoComponent } from './components/news/see-post-info/see-post-info.component';
-import { CreatePostComponent } from './news/create-post/create-post.component';
-import { TownsComponent } from './components/properties/towns/towns.component';
-import { EditCountryComponent } from './components/properties/towns/edit-country/edit-country.component';
-import { AddCountryListComponent } from './components/properties/towns/add-country-list/add-country-list.component';
+import { CreatePostComponent } from './components/news/create-post/create-post.component';
+import { TownsComponent } from './components/towns/towns.component';
+import { EditCountryComponent } from './components/towns/edit-country/edit-country.component';
+import { AddCountryListComponent } from './components/towns/add-country-list/add-country-list.component';
 import { OwnerComponent } from './components/owner/owner.component';
+import { PropertiesComponent } from './components/properties/properties.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { OwnerComponent } from './components/owner/owner.component';
     TownsComponent,
     EditCountryComponent,
     AddCountryListComponent,
-    OwnerComponent
+    OwnerComponent,
+    PropertiesComponent
   ],
   imports: [
     SharedModule,
@@ -73,7 +75,7 @@ import { OwnerComponent } from './components/owner/owner.component';
           { path: 'edit-language', component: EditWordComponent},
           { path: 'add-lang', component: AdminAddLanguageComponent},
           { path: 'add-word/:lang', component: AddWordComponent},
-          { path: 'properties', component: AdminPropertiesComponent},
+          { path: 'refdata', component: AdminPropertiesComponent},
           { path: 'creatCountry', component: AddCountryComponent},
           { path: 'editRefData', component: ViewEditRefDataComponent},
           { path: 'propertyNews', component: NewsComponent},
@@ -83,6 +85,7 @@ import { OwnerComponent } from './components/owner/owner.component';
           { path: 'edit-country', component: EditCountryComponent },
           { path: 'add-country-list', component: AddCountryListComponent},
           { path: 'owner', component: OwnerComponent},
+          { path: 'properties', component: PropertiesComponent},
         ]
     }
     ])

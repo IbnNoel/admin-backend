@@ -10,6 +10,8 @@ export class OwnerService {
 
   readonly baseURL = `${environment.baseUrl}/owner`;
 
+  constructor(private http: HttpClient) { }readonly baseURL = `${environment.baseUrl}/owner`;
+
   constructor(private http: HttpClient) { }
 
   searchOwner(pg: number,pgS: number, searchedUser) {

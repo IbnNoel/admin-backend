@@ -37,7 +37,7 @@ import { AppHttpInterceptor } from './shared/services/auth-guard.service';
 import { testPrivilegeModule } from './test-privilege/test.module';
 import { MooplaModule } from './moopla/moopla.module';
 import { AppDropdownComponent } from './components/controls/dropdown/app.dropdown.component';
-import { ViewEditRefDataComponent } from './admin-home/components/properties/view-edit-ref-data/view-edit-ref-data.component';
+import { ViewEditRefDataComponent } from './admin-home/components/refdata/view-edit-ref-data/view-edit-ref-data.component';
 import { ChipsComponent } from './components/controls/chips/chips.component';
 import { PriceListReducer } from './reducers/price-list-form.reducers';
 
