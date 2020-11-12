@@ -13,7 +13,15 @@ export class PropertiesService {
   constructor(private http: HttpClient) { }
   
   searchProperty(pg: number,pgS: number, searchedUser) {
-    return this.http.get<ApiResponse<any[]>>(`${this.baseURL}/forSale/dataTable?pg=${pg}&pgS=${pgS}&_id=${searchedUser._id}`)
+    return this.http.get(`${this.baseURL}/for${searchedUser.searchType}/dataTable?pg=${pg}&pgS=${pgS}&propertyType=${searchedUser.propertyType}&city=${searchedUser.city}`)
+  }
+
+  updateProperty(property) {
+    return this.http.patch(`${this.baseURL}/property/AdminEditProperty/${property._id}`, property);
+  }
+
+  updateEditPropertyData(property, type) {
+    return this.http.patch(`${this.baseURL}/for${type}/AdminEdit/${property._id}`, property);
   }
 
 }

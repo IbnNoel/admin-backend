@@ -1,0 +1,5 @@
+.mat-radio-group{
+    display:flex ;
+    width:100%;
+    justify-content: space-between;
+  }

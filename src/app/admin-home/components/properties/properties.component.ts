@@ -22,6 +22,7 @@ export class PropertiesComponent implements OnInit {
   generalSettings = new GeneralSettings();
   expansionSettings: ExpansionSettings;
   searchFormGroup: FormGroup;
+  type: any;
 
   constructor(private formBuilder: FormBuilder, public CFR: ComponentFactoryResolver,
               private router: Router, private propertyService: PropertiesService) {
@@ -32,8 +33,9 @@ export class PropertiesComponent implements OnInit {
   ngOnInit(): void {
     this.searchFormGroup = this.formBuilder.group({
       _id: [''],
+      searchType: ['Sale'],
       city: [''],
-      type: ['']
+      propertyType: ['']
     });
     this.onPageChange();
   }
@@ -74,6 +76,7 @@ export class PropertiesComponent implements OnInit {
 
     const pg = this.pageSettings.currentPage - 1;
     const pgS = this.pageSettings.pageSize;
+    this.type = this.searchFormGroup.get('searchType').value;
     this.propertyService.searchProperty(pg, pgS, this.searchFormGroup.value).subscribe(
       (data: any) => {
         console.log(data);
@@ -92,7 +95,17 @@ export class PropertiesComponent implements OnInit {
     deleteButton.action = (data => {
       // this.deleteUserInfo(data._id);
     });
-    menu.buttons.push(deleteButton);
+    const editButton = new ActionButton();
+    deleteButton.label = 'edit';
+    deleteButton.data = rowData;
+    deleteButton.action = (data => {
+      let params = data;
+      const property = JSON.stringify(data.property);
+      const type = this.type;
+      params = {...params, property, type};
+      this.router.navigate([`admin/editProperty`, params]);
+    });
+    menu.buttons.push(deleteButton, editButton);
     return menu;
   }
 }

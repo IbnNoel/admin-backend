@@ -5,8 +5,27 @@
             <div class="well">
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>{{'_id' | translate}}</label>
-                        <input type="text" class="form-control" formControlName='_id'>
+                        <label>{{'city' | translate}}</label>
+                        <input type="text" class="form-control" formControlName='city'>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <mat-radio-group aria-label="Select an option" formControlName='searchType'>
+                            <mat-radio-button value="Sale">Sale</mat-radio-button>
+                            <mat-radio-button value="Rent">Rent</mat-radio-button>
+                          </mat-radio-group>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <mat-form-field>
+                            <mat-label>Property Type</mat-label>
+                            <mat-select formControlName='propertyType'>
+                              <mat-option value="">All</mat-option>
+                              <mat-option value="APARTMENT">Apartement</mat-option>
+                              <mat-option value="HOUSE">House</mat-option>
+                              <mat-option value="LAND">Land</mat-option>
+                            </mat-select>
+                          </mat-form-field>
                     </div>
                 </div>
                 <div class="row">

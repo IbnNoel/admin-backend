@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatRadioModule} from '@angular/material/radio';
+
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,6 +42,10 @@ import { AppDropdownComponent } from './components/controls/dropdown/app.dropdow
 import { ViewEditRefDataComponent } from './admin-home/components/refdata/view-edit-ref-data/view-edit-ref-data.component';
 import { ChipsComponent } from './components/controls/chips/chips.component';
 import { PriceListReducer } from './reducers/price-list-form.reducers';
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+
+
+// import { MatOptionModule } from '@angular/material/core/option';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -57,7 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ConfirmationBoxComponent,
     OperationButtonsComponent,
     ViewEditRefDataComponent,
-    ChipsComponent
+    ChipsComponent,
   ],
   imports: [
     SharedModule,
@@ -75,6 +81,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     MatMenuModule,
     MatIconModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    // MatOptionModule,
     ReactiveFormsModule,
     StoreModule.forRoot({
       selectLang: SelelectLanguageReducer,

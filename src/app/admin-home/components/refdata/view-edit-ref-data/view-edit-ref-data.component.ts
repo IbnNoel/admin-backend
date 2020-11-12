@@ -44,8 +44,8 @@ export class ViewEditRefDataComponent implements OnInit {
   priceListParams: any;
 
   constructor(private route: ActivatedRoute, private _location: Location,
-    private refDataService: RefDataService, private localService: LocalService,
-    private priceListServer: PriceListService, private store: Store<AppState>) {
+              private refDataService: RefDataService, private localService: LocalService,
+              private priceListServer: PriceListService, private store: Store<AppState>) {
     this.refDataId = this.route.snapshot.paramMap.get('id');
 
     this.route.params.pipe(take(1)).subscribe(data => {
@@ -91,6 +91,7 @@ export class ViewEditRefDataComponent implements OnInit {
         });
     }
   }
+
   updateState(value) {
     this.store.dispatch(new UpdatePriceListForm(_.cloneDeep(value)));
   }

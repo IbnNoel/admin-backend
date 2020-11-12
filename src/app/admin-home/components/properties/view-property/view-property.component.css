@@ -1,0 +1,68 @@
+h5{
+    font-weight: bold;
+}
+
+.panel-heading{
+    background-color: #f8f8f8;
+}
+
+label{
+    width: 160px;
+}
+
+.panel-heading{
+    text-align: left;
+}
+
+.panel-heading i{
+    margin-right:10px;
+    font-size: 20px;
+}
+
+.panel-heading h5{
+    display: inline;
+}
+
+.panel-heading button{
+    font-size:10px;
+}
+
+.editBtns{
+    display:none;
+}
+.editState .editBtns{
+    display:block;
+}
+.editState .readContent{
+    display:none;
+}
+.list-group input{
+    display: none;
+}
+.list-group mat-checkbox{
+    display: none;
+}
+.editState .list-group mat-checkbox{
+    display: inline-block;
+}
+.editState .list-group input{
+    display: inline-block;
+    width: 450px;
+}
+
+.calenderControl{
+    display: none;
+}
+
+.editState .calenderControl{
+    display: inline-block;
+    width:450px;
+}
+
+.editState .list-group .calenderControl input{
+    width: 400px;
+} 
+
+.full-width {
+    width: 100%;
+  }

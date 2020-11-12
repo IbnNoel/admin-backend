@@ -27,7 +27,9 @@ import { EditCountryComponent } from './components/towns/edit-country/edit-count
 import { AddCountryListComponent } from './components/towns/add-country-list/add-country-list.component';
 import { OwnerComponent } from './components/owner/owner.component';
 import { PropertiesComponent } from './components/properties/properties.component';
-
+import { ViewPropertyComponent } from './components/properties/view-property/view-property.component';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select'; 
 @NgModule({
   declarations: [
     AdminComponent,
@@ -51,12 +53,15 @@ import { PropertiesComponent } from './components/properties/properties.componen
     EditCountryComponent,
     AddCountryListComponent,
     OwnerComponent,
-    PropertiesComponent
+    PropertiesComponent,
+    ViewPropertyComponent
   ],
   imports: [
     SharedModule,
     CommonModule,
     MatSlideToggleModule,
+    MatRadioModule,
+    MatSelectModule,
     RouterModule.forRoot([
       { 
         path: 'admin', 
@@ -86,6 +91,7 @@ import { PropertiesComponent } from './components/properties/properties.componen
           { path: 'add-country-list', component: AddCountryListComponent},
           { path: 'owner', component: OwnerComponent},
           { path: 'properties', component: PropertiesComponent},
+          { path: 'editProperty', component: ViewPropertyComponent},
         ]
     }
     ])

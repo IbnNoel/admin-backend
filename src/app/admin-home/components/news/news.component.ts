@@ -27,7 +27,7 @@ export class NewsComponent implements OnInit {
   searchFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private router: Router,
-    private newsService: PropertyNewsService, public CFR: ComponentFactoryResolver) {
+              private newsService: PropertyNewsService, public CFR: ComponentFactoryResolver) {
     this.setUpColumnDefintion();
     this.expansionSettings = this.setupExpansionSettings();
     this.setUppageSettings();

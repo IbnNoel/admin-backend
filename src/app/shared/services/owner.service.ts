@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
 import { ApiResponse } from './Mongodb/api-response';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,6 @@ import { ApiResponse } from './Mongodb/api-response';
 export class OwnerService {
 
   readonly baseURL = `${environment.baseUrl}/owner`;
-
-  constructor(private http: HttpClient) { }readonly baseURL = `${environment.baseUrl}/owner`;
-
   constructor(private http: HttpClient) { }
 
   searchOwner(pg: number,pgS: number, searchedUser) {
