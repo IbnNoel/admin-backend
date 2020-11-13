@@ -16,36 +16,37 @@
                                         </div>
                                     </div>
                                 </li>
-
-                                <li class="list-group-item"><label>Owner Id</label>
+                                 <li class="list-group-item"><label>Owner Id</label>
                                     <span class="readContent">{{Data.ownerId}}</span>
-                                    <input disabled  type="text" class="form-control" name="ownerId" [(ngModel)]="Data.ownerId" [ngModelOptions]="{updateOn:'submit'}"/>
+                                     <input disabled  type="text" class="form-control" name="ownerId" [(ngModel)]="Data.ownerId"/>
                                 </li>
                                 <li class="list-group-item"><label>Property Id</label>
                                     <span class="readContent">{{Data.propertyId}}</span>
-                                    <input disabled type="text" class="form-control" name="propertyId" [(ngModel)]="Data.propertyId" [ngModelOptions]="{updateOn:'submit'}"/>
+                                     <input disabled type="text" class="form-control" name="propertyId" [(ngModel)]="Data.propertyId"/> 
                                 </li>
                                 <li class="list-group-item"><label>Price</label>
                                     <span class="readContent">{{Data.price}}</span>
-                                    <input type="text" name="price" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  [(ngModel)]="Data.price" [ngModelOptions]="{updateOn:'submit'}"/>
+                                    <input required type="number" class="form-control" name="price" [(ngModel)]="Data.price" [ngModelOptions]="{updateOn:'submit'}"/>
                                 </li>
-                                <li *ngIf="type == 'Rent'" class="list-group-item"><label>furnished</label>
+                                
+                                    <ng-container *ngIf="type == 'Rent'">
+                                   <li class="list-group-item"><label>furnished</label>
                                     <span style='font-size: 25px'
                                         [ngClass]="{'glyphicon-ok-circle' : Data.furnished, 'glyphicon-remove-circle':!Data.furnished }"
                                         class='glyphicon readContent'></span>
                                     <mat-checkbox class="example-margin" name="furnished" [(ngModel)]="Data.furnished" [ngModelOptions]="{updateOn:'submit'}"></mat-checkbox>
                                 </li>
-                                <li *ngIf="type == 'Rent'" class="list-group-item"><label>sharedAccommodation</label>
+                                <li class="list-group-item"><label>sharedAccommodation</label>
                                     <span style='font-size: 25px'
                                         [ngClass]="{'glyphicon-ok-circle' : Data.sharedAccommodation, 'glyphicon-remove-circle':!Data.sharedAccommodation }"
                                         class='glyphicon readContent'></span>
                                     <mat-checkbox class="example-margin" name="sharedAccommodation" [(ngModel)]="Data.sharedAccommodation" [ngModelOptions]="{updateOn:'submit'}"></mat-checkbox>
-                                </li>
+                                </li> 
+                                </ng-container>
                                 <li class="list-group-item editBtns">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button (click)="editState.data = !editState.data"
-                                                class="btn btn-default pull-left">Cancel</button>
+                                            <button (click)="editState.data = !editState.data" class="btn btn-default pull-left">Cancel</button>
                                             <button type="submit" class="btn btn-primary pull-right">Save</button>
                                         </div>
                                     </div>
@@ -77,27 +78,27 @@
                             </li>
                             <li class="list-group-item"><label>Area</label>
                                 <span class="readContent">{{property.area}}</span>
-                                <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" name="area" [(ngModel)]="property.area" [ngModelOptions]="{updateOn:'submit'}" />
+                                <input required type="number" class="form-control" name="area" [(ngModel)]="property.area" [ngModelOptions]="{updateOn:'submit'}" />
                             </li>
                             <li class="list-group-item"><label>Bedrooms</label>
                                 <span class="readContent">{{property.bedrooms}}</span>
-                                <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" name="bedrooms" [(ngModel)]="property.bedrooms" [ngModelOptions]="{updateOn:'submit'}" />
+                                <input required type="number" class="form-control" name="bedrooms" [(ngModel)]="property.bedrooms" [ngModelOptions]="{updateOn:'submit'}" />
                             </li>
                             <li class="list-group-item"><label>Bathrooms</label>
                                 <span class="readContent">{{property.bathrooms}}</span>
-                                <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" name="bathrooms" [(ngModel)]="property.bathrooms" [ngModelOptions]="{updateOn:'submit'}" />
+                                <input required type="number" class="form-control" name="bathrooms" [(ngModel)]="property.bathrooms" [ngModelOptions]="{updateOn:'submit'}" />
                             </li>
                             <li class="list-group-item"><label>kitchen</label>
                                 <span class="readContent">{{property.kitchen}}</span>
-                                <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" name="kitchen" [(ngModel)]="property.kitchen" [ngModelOptions]="{updateOn:'submit'}" />
+                                <input required type="number" class="form-control" name="kitchen" [(ngModel)]="property.kitchen" [ngModelOptions]="{updateOn:'submit'}" />
                             </li>
                             <li class="list-group-item"><label>livingRoom</label>
                                 <span class="readContent">{{property.livingRoom}}</span>
-                                <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" name="livingRoom" [(ngModel)]="property.livingRoom" [ngModelOptions]="{updateOn:'submit'}" />
+                                <input required type="number" class="form-control" name="livingRoom" [(ngModel)]="property.livingRoom" [ngModelOptions]="{updateOn:'submit'}" />
                             </li>
                             <li class="list-group-item"><label>receptionRooms</label>
                                 <span class="readContent">{{property.receptionRooms}}</span>
-                                <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" name="receptionRooms" [(ngModel)]="property.receptionRooms" [ngModelOptions]="{updateOn:'submit'}" />
+                                <input required type="number"  class="form-control" name="receptionRooms" [(ngModel)]="property.receptionRooms" [ngModelOptions]="{updateOn:'submit'}" />
                             </li>
                             <li class="list-group-item"><label>Archived</label>
                                 <span style='font-size: 25px'

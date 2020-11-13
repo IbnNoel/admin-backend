@@ -31,8 +31,8 @@ export class ViewPropertyComponent implements OnInit {
               private store: Store<AppState>, private propertyService: PropertiesService) {
                 this.route.params.pipe(take(1)).subscribe((data: any) => {
                   this.Data = _.cloneDeep(data);
-                  this.Data.furnished = JSON.parse(data.furnished);
-                  this.Data.sharedAccommodation = JSON.parse(data.sharedAccommodation);
+                  this.Data.furnished = JSON.parse(data.furnished || null);
+                  this.Data.sharedAccommodation = JSON.parse(data.sharedAccommodation || null);
                   this.property = JSON.parse(data.property);
                   this.type = data.type;
                 });
@@ -41,21 +41,27 @@ export class ViewPropertyComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getFormStatus(value) {
+    console.log('invalid: ' + value.invalid);
+    console.log('touched: ' + value.touched);
+    return (value.invalid || value.touched);
+  }
+
   onSubmit(entity, value?) {
-    console.log(value);
+    console.log(entity);
     this.editState[entity] = false;
-    if (entity === 'data') {
-      this.propertyService.updateEditPropertyData(this.Data, this.type)
-        .subscribe(data => {
-          console.log(data);
-        });
-    }
-    if (entity === 'property') {
-      this.propertyService.updateProperty(this.property)
-        .subscribe(data => {
-          console.log(data);
-        });
-    }
+    // if (entity === 'data') {
+    //   this.propertyService.updateEditPropertyData(this.Data, this.type)
+    //     .subscribe(data => {
+    //       console.log(data);
+    //     });
+    // }
+    // if (entity === 'property') {
+    //   this.propertyService.updateProperty(this.property)
+    //     .subscribe(data => {
+    //       console.log(data);
+    //     });
+    // }
   }
 
   backButton() {
