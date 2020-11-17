@@ -1,0 +1,112 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>{{'OWNER-PROPERTIES' | translate}}</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div [ngClass]="{'editState':editState.forSale}">
+                        <form *ngIf="ownerData.forSale[0]._id" #o="ngForm" (ngSubmit)="submitProperty('forSale')">
+                            <ul class="list-group">
+                                <li class="list-group-item  panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5><i></i>for-Sale properties </h5>
+                                            
+                                            <select #selectList (change)="selectProperty(selectList.value, 'sale')">
+                                                <option disabled>Select a property </option>
+                                                <option *ngFor="let data of ownerData.forSale; let i = index" [attr.data-index]="i" [value]="i">{{data.property._id}}</option>
+                                            </select>
+
+                                            <a class="glyphicon glyphicon-pencil btn btn-primary pull-right"
+                                                (click)="editState.forSale = !editState.forSale"></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <ng-container *ngIf="modifiedForSale.property.area">
+                                <li class="list-group-item"><label>Area</label>
+                                    <span class="readContent">{{modifiedForSale.property.area}}</span>
+                                    <input type="text"  class="form-control" name="area" [(ngModel)]="modifiedForSale.property.area" [ngModelOptions]="{updateOn:'submit'}"/>
+                                </li>
+                                <li class="list-group-item"><label>bathrooms</label>
+                                    <span class="readContent">{{modifiedForSale.property.bathrooms}}</span>
+                                    <input type="text" class="form-control" name="bathrooms" [(ngModel)]="modifiedForSale.property.bathrooms" [ngModelOptions]="{updateOn:'submit'}"/>
+                                </li>
+                                <li class="list-group-item"><label>livingRoom</label>
+                                    <span class="readContent">{{modifiedForSale.property.livingRoom}}</span>
+                                    <input type="text" class="form-control" name="livingRoom" [(ngModel)]="modifiedForSale.property.livingRoom" [ngModelOptions]="{updateOn:'submit'}"/>
+                                </li>
+                                <li class="list-group-item"><label>features</label>
+                                    <span class="readContent">{{modifiedForSale.property.features}}</span>
+                                    <input type="text"  class="form-control" name="features" [(ngModel)]="modifiedForSale.property.features" [ngModelOptions]="{updateOn:'submit'}"/>
+                                </li> 
+                                </ng-container>
+                                <li class="list-group-item editBtns">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button (click)="editState.forSale = !editState.forSale"
+                                                class="btn btn-default pull-left">Cancel</button>
+                                            <button type="submit" class="btn btn-primary pull-right">Save</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div [ngClass]="{'editState':editState.forRent}">
+                    <form *ngIf="ownerData.forSale[0]._id" #f="ngForm" (ngSubmit)="submitProperty('forRent')">
+                        <ul class="list-group">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i></i>for-Rent properties </h5>
+                                        <select #selectList (change)="selectProperty(selectList.value, 'rent')">
+                                            <option disabled>Select a property</option>
+                                            <option *ngFor="let data of ownerData.forRent; let i = index" [attr.data-index]="i" [value]="i"> {{data.property._id}}</option>
+                                        </select>
+                                        <a class="glyphicon glyphicon-pencil btn btn-primary pull-right"
+                                            (click)="editState.forRent = !editState.forRent"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <ng-container *ngIf="modifiedForRent.property.area">
+                            <li class="list-group-item"><label>Area</label>
+                                <span class="readContent">{{modifiedForRent.property.area}}</span>
+                                <input type="text"  class="form-control" name="area" [(ngModel)]="modifiedForRent.property.area" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>bathrooms</label>
+                                <span class="readContent">{{modifiedForRent.property.bathrooms}}</span>
+                                <input type="text" class="form-control" name="bathrooms" [(ngModel)]="modifiedForRent.property.bathrooms" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>livingRoom</label>
+                                <span class="readContent">{{modifiedForRent.property.livingRoom}}</span>
+                                <input type="text" class="form-control" name="livingRoom" [(ngModel)]="modifiedForRent.property.livingRoom" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>features</label>
+                                <span class="readContent">{{modifiedForRent.property.features}}</span>
+                                <input type="text"  class="form-control" name="features" [(ngModel)]="modifiedForRent.property.features" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li> 
+                            </ng-container>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.forRent = !editState.forRent"
+                                            class="btn btn-default pull-left">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-default pull-left" (click)="backButton()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

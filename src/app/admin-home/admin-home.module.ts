@@ -30,6 +30,7 @@ import { PropertiesComponent } from './components/properties/properties.componen
 import { ViewPropertyComponent } from './components/properties/view-property/view-property.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select'; 
+import { ViewOwnerDetailComponent } from './components/owner/view-owner-detail/view-owner-detail.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -92,6 +93,7 @@ import {MatSelectModule} from '@angular/material/select';
           { path: 'owner', component: OwnerComponent},
           { path: 'properties', component: PropertiesComponent},
           { path: 'editProperty', component: ViewPropertyComponent},
+          { path: 'edit-owner', component: ViewOwnerDetailComponent},
         ]
     }
     ])

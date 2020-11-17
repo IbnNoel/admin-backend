@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { User } from '../../models/user';
 import { SearchForRentService } from 'src/app/moopla/services/search-for-rent.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

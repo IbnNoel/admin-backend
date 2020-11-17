@@ -42,7 +42,8 @@ import { AppDropdownComponent } from './components/controls/dropdown/app.dropdow
 import { ViewEditRefDataComponent } from './admin-home/components/refdata/view-edit-ref-data/view-edit-ref-data.component';
 import { ChipsComponent } from './components/controls/chips/chips.component';
 import { PriceListReducer } from './reducers/price-list-form.reducers';
-import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ViewOwnerDetailComponent } from './admin-home/components/owner/view-owner-detail/view-owner-detail.component'; 
 
 
 // import { MatOptionModule } from '@angular/material/core/option';
@@ -64,6 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OperationButtonsComponent,
     ViewEditRefDataComponent,
     ChipsComponent,
+    ViewOwnerDetailComponent,
   ],
   imports: [
     SharedModule,

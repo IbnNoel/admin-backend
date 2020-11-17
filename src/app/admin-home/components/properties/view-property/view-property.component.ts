@@ -20,6 +20,8 @@ export class ViewPropertyComponent implements OnInit {
     data: false,
   };
   firstFormGroup: FormGroup;
+  oForm = false;
+  f1Form = false;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
@@ -47,21 +49,31 @@ export class ViewPropertyComponent implements OnInit {
     return (value.invalid || value.touched);
   }
 
+  changeStatus(value) {
+    if (value === 'o') {
+      this.oForm = true;
+    }
+    if (value === 'f1') {
+      this.f1Form = true;
+    }
+
+  }
+
   onSubmit(entity, value?) {
     console.log(entity);
     this.editState[entity] = false;
-    // if (entity === 'data') {
-    //   this.propertyService.updateEditPropertyData(this.Data, this.type)
-    //     .subscribe(data => {
-    //       console.log(data);
-    //     });
-    // }
-    // if (entity === 'property') {
-    //   this.propertyService.updateProperty(this.property)
-    //     .subscribe(data => {
-    //       console.log(data);
-    //     });
-    // }
+    if (entity === 'data') {
+      this.propertyService.updateEditPropertyData(this.Data, this.type)
+        .subscribe(data => {
+          console.log(data);
+        });
+    }
+    if (entity === 'property') {
+      this.propertyService.updateProperty(this.property)
+        .subscribe(data => {
+          console.log(data);
+        });
+    }
   }
 
   backButton() {
