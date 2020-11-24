@@ -4,6 +4,43 @@
             <h4>Property Data</h4>
             <div class="row">
                 <div class="col-md-6">
+                    <div [ngClass]="{'editState':editState.image}">
+                        <form *ngIf="imageData" #o="ngForm" (ngSubmit)="uploadImage()">
+                            <ul class="list-group">
+                                <li class="list-group-item  panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5><i></i>Image</h5>
+                                            <a class="glyphicon glyphicon-pencil btn btn-primary pull-right"
+                                                (click)="editState.image = !editState.image"></a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item"><label>Image key</label>
+                                    <span class="readContent">{{imageData[0]}}</span>
+                                    <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+                                    <div><img *ngIf="!editState.image" width="407" height="229" [src]="getImageUrl()"></div>
+                                    <div><img *ngIf="editState.image" width="407" height="229" [src]="modifiedurl"></div>
+                                    <p>
+                                        <input type="file" accept=".png, .jpg" (change)="selectImage($event)">
+                                    </p>
+                                    <!-- <input type="text" class="form-control" name="articleHeadline" [(ngModel)]="imageData" [ngModelOptions]="{updateOn:'submit'}"/> -->
+                                </li>
+                                <li class="list-group-item editBtns">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button (click)="editState.image = !editState.image"
+                                                class="btn btn-default pull-left">Cancel</button>
+                                            <button type="submit" [disabled]="!!disabledButton" class="btn btn-primary pull-right">Save</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div [ngClass]="{'editState':editState.data}">
                         <form *ngIf="Data._id" #o="ngForm" (ngSubmit)="onSubmit('data')">
                             <ul class="list-group">
@@ -53,8 +90,10 @@
                                 </li>
                             </ul>
                         </form>
-                </div> 
+                    </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <form *ngIf="!!property._id" #f2="ngForm" (ngSubmit)="onSubmit('property')"
                         [ngClass]="{'editState':editState.property}">
@@ -119,6 +158,7 @@
                     </form>
                 </div>            
             </div>
+            
         <div class="row">
                 <div class="col-md-12">
                     <button class="btn btn-default pull-left" (click)="backButton()">Back</button>

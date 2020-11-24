@@ -7,6 +7,7 @@ import { AppState } from 'src/app/state/models/app-state-models';
 import { Location } from '@angular/common';
 import { take } from 'rxjs/operators';
 import * as _ from 'lodash';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-view-property',
@@ -18,6 +19,7 @@ export class ViewPropertyComponent implements OnInit {
   editState = {
     property: false,
     data: false,
+    image: false
   };
   firstFormGroup: FormGroup;
   oForm = false;
@@ -29,6 +31,14 @@ export class ViewPropertyComponent implements OnInit {
   property: any;
   type: any;
 
+  imageData: any;
+  selectedImage: any;
+  imageFormData: any;
+  url;
+  modifiedurl;
+  msg = '';
+  disabledButton = true;
+
   constructor(private route: ActivatedRoute, private location: Location,
               private store: Store<AppState>, private propertyService: PropertiesService) {
                 this.route.params.pipe(take(1)).subscribe((data: any) => {
@@ -37,6 +47,7 @@ export class ViewPropertyComponent implements OnInit {
                   this.Data.sharedAccommodation = JSON.parse(data.sharedAccommodation || null);
                   this.property = JSON.parse(data.property);
                   this.type = data.type;
+                  this.imageData = this.property.images_key;
                 });
                }
 
@@ -74,6 +85,58 @@ export class ViewPropertyComponent implements OnInit {
           console.log(data);
         });
     }
+  }
+
+  selectImage(event) {
+    this.disabledButton = true;
+    this.selectedImage = null;
+    if (!event.target.files[0] || event.target.files[0].length === 0) {
+      this.msg = 'You must select an image';
+      this.modifiedurl = 'null';
+      return;
+    }
+
+    let mimeType = event.target.files[0].type;
+
+    if (mimeType.match(/image\/*/) == null) {
+      this.msg = 'Only images with .jpg or .png are supported';
+      this.modifiedurl = 'null';
+      return;
+    }
+    // if (event.target.files[0].type !== ('image/png' || 'image/jpg')) {
+    //   this.msg = 'Only images with .jpg or .png are supported';
+    //   this.modifiedurl = 'null';
+    //   return;
+    //   }
+    else {
+      var reader = new FileReader();
+      this.disabledButton = false;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+      reader.onload = (_event) => {
+        this.msg = '';
+        this.modifiedurl = reader.result;
+      }
+    }
+  }
+
+  getImageUrl() {
+    let url = this.url ? this.url : environment.awsS3 + this.imageData[0];
+    //  let url = this.url ? this.url : this.s3.getObj(this.imageData.images_key);
+    return url;
+  }
+
+  uploadImage() {
+    this.url = this.modifiedurl;
+    this.editState.image = false;
+    let imageFormData = new FormData();
+    imageFormData.append('file', this.selectedImage);
+    imageFormData.append('_id', this.imageData._id);
+    // this.propertyService.updateImage(imageFormData, '')
+    //   .subscribe((data: any) => {
+    //     this.imageData.images_key = data.data.images_key;
+    //     console.log(data);
+    //   });
   }
 
   backButton() {

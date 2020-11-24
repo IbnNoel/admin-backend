@@ -31,6 +31,8 @@ import { ViewPropertyComponent } from './components/properties/view-property/vie
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select'; 
 import { ViewOwnerDetailComponent } from './components/owner/view-owner-detail/view-owner-detail.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { OwenerPropertyComponent } from './components/owner/owener-property/owener-property.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -55,7 +57,8 @@ import { ViewOwnerDetailComponent } from './components/owner/view-owner-detail/v
     AddCountryListComponent,
     OwnerComponent,
     PropertiesComponent,
-    ViewPropertyComponent
+    ViewPropertyComponent,
+    OwenerPropertyComponent
   ],
   imports: [
     SharedModule,
@@ -63,6 +66,7 @@ import { ViewOwnerDetailComponent } from './components/owner/view-owner-detail/v
     MatSlideToggleModule,
     MatRadioModule,
     MatSelectModule,
+    MatFormFieldModule,
     RouterModule.forRoot([
       { 
         path: 'admin', 
@@ -93,7 +97,8 @@ import { ViewOwnerDetailComponent } from './components/owner/view-owner-detail/v
           { path: 'owner', component: OwnerComponent},
           { path: 'properties', component: PropertiesComponent},
           { path: 'editProperty', component: ViewPropertyComponent},
-          { path: 'edit-owner', component: ViewOwnerDetailComponent},
+          { path: 'viewDetails-owner/:_id', component: ViewOwnerDetailComponent},
+          { path: 'owner-property', component: OwenerPropertyComponent},
         ]
     }
     ])
