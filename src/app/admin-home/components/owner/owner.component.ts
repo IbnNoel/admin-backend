@@ -90,16 +90,16 @@ export class OwnerComponent implements OnInit {
     deleteButton.action = (data => {
       // this.deleteUserInfo(data._id);
     });
-    const editButton = new ActionButton();
-    editButton.label = 'edit';
-    editButton.data = rowData;
-    editButton.action = (data => {
+    const viewDetailsButton = new ActionButton();
+    viewDetailsButton.label = 'viewDetails';
+    viewDetailsButton.data = rowData;
+    viewDetailsButton.action = (data => {
       const forSale = JSON.stringify(data.forSale);
       const forRent = JSON.stringify(data.forRent);
       const params = {...data, forSale, forRent};
-      this.router.navigate([`admin/edit-owner`, params]);
+      this.router.navigate([`admin/viewDetails-owner/`, params._id]);
     });
-    menu.buttons.push(deleteButton, editButton);
+    menu.buttons.push(deleteButton, viewDetailsButton);
     return menu;
   }
 

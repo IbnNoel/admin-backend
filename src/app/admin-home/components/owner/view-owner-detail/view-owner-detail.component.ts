@@ -1,10 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ComponentFactoryResolver, forwardRef, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { take } from 'rxjs/operators';
 import { OwnerService } from 'src/app/shared/services/owner.service';
 import { Location } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
+import { ActionButton, ActionMenuComponent } from 'src/app/components/controls/action-menu/action-menu.component';
+import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Columns';
+import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
+import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
+import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 import { PropertiesService } from 'src/app/shared/services/properties.service';
+import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-view-owner-detail',
@@ -13,63 +20,108 @@ import { PropertiesService } from 'src/app/shared/services/properties.service';
 })
 export class ViewOwnerDetailComponent implements OnInit {
 
-  editState = {
-    forSale: false,
-    forRent: false,
-  };
-  ownerData: any;
-  modifiedForSale: any;
-  modifiedForRent: any;
-  selectedForSale = false;
-  selectedForRent = false;
-  forSaleIndex = 0;
-  forRentIndex = 0;
+  data = new BehaviorSubject<Array<any>>([]);
+  colDefinitions: Array<ColumnDefs>;
+  pageSettings: PageSettings;
+  generalSettings = new GeneralSettings();
+  expansionSettings: ExpansionSettings;
+  searchFormGroup: FormGroup;
+  type: any;
+  ownerId: string;
+  propertyType: string;
 
   constructor(private route: ActivatedRoute, private location: Location,
-              private ownerService: OwnerService, private propertiesService: PropertiesService) {
+              private ownerService: OwnerService, private propertiesService: PropertiesService,
+              private formBuilder: FormBuilder, public CFR: ComponentFactoryResolver,
+              private router: Router, private propertyService: PropertiesService) {
+   
     this.route.params.pipe(take(1)).subscribe(data => {
-      this.ownerData = _.cloneDeep(data);
-      const forSale = JSON.parse(data.forSale);
-      const forRent = JSON.parse(data.forRent);
-      this.ownerData = { ...this.ownerData, forSale, forRent };
-      console.log(this.ownerData);
+      this.ownerId = data._id;
     });
+    this.setUpColumnDefintion();
+    this.setUppageSettings();
   }
 
   ngOnInit(): void {
-    this.modifiedForSale = this.ownerData.forSale[0];
-    console.log(this.modifiedForSale);
-    this.modifiedForRent = this.ownerData.forRent[0];
+    this.searchFormGroup = this.formBuilder.group({
+      _id: [this.ownerId],
+      searchType: ['Sale'],
+      city: [''],
+      propertyType: ['']
+    });
+    this.onPageChange();
+  }
+  setUpColumnDefintion() {
+    this.colDefinitions = [
+      {
+        key: '_id',
+        className: 'data_grid_left_align',
+        header: 'Id'
+      },
+      {
+        key: 'property.city',
+        className: 'data_grid_center_align',
+        header: 'city'
+      },
+      {
+        key: 'property.propertyType',
+        className: 'data_grid_center_align',
+        header: 'Type'
+      },
+      {
+        cellElement: (cellData, rowData, row) => {
+          return this.generateActionMenuForRfr(cellData, rowData, row);
+        }, className: 'data_grid_center_align', responsivePriority: true
+      }
+    ];
   }
 
-  submitProperty(entity) {
-    if (entity === 'forSale') {
-      this.propertiesService.updateProperty(this.modifiedForSale.property)
-        .subscribe(data => {
-          console.log(data);
-        });
-    }
-    if (entity === 'forRent') {
-      this.propertiesService.updateProperty(this.modifiedForRent.property)
-        .subscribe(data => {
-          console.log(data);
-        });
-    }
-    this.editState[entity] = false;
+  setUppageSettings() {
+    this.pageSettings = new PageSettings(() => {
+      this.onPageChange();
+    });
   }
 
-  selectProperty(value, type) {
-    if (type === 'sale') {
-      console.log(this.modifiedForSale);
-      this.modifiedForSale = this.ownerData.forSale[+value];
-      console.log(this.modifiedForSale);
-    }
-    if (type === 'rent') {
-      this.modifiedForRent = this.ownerData.forRent[+value];
-    }
+  onPageChange(value?) {
+    (value) ? this.pageSettings.currentPage = 1 : this.pageSettings.currentPage;
+
+    const pg = this.pageSettings.currentPage - 1;
+    const pgS = this.pageSettings.pageSize;
+    this.type = this.searchFormGroup.get('searchType').value;
+    this.propertyService.searchOwnerProperty(pg, pgS, this.searchFormGroup.value).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.pageSettings.setTotalRecords(data.total);
+        this.data.next(data.data);
+      },
+      err => { console.log(err); }
+    );
+  }
+
+  generateActionMenuForRfr(cellData, rowData, row) {
+    const menu = new ActionMenuComponent();
+    const deleteButton = new ActionButton();
+    deleteButton.label = 'delete';
+    deleteButton.data = rowData;
+    deleteButton.action = (data => {
+      // this.deleteUserInfo(data._id);
+    });
+    const editButton = new ActionButton();
+    deleteButton.label = 'edit';
+    deleteButton.data = rowData;
+    deleteButton.action = (data => {
+      let params = data;
+      const property = JSON.stringify(data.property);
+      const type = this.type;
+      params = {...params, property, type};
+      this.router.navigate([`admin/editProperty`, params]);
+    });
+    menu.buttons.push(deleteButton, editButton);
+    return menu;
   }
 
   backButton() {
     this.location.back();
   }
+
 }

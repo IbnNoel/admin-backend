@@ -12,8 +12,12 @@ export class PropertiesService {
 
   constructor(private http: HttpClient) { }
   
-  searchProperty(pg: number,pgS: number, searchedUser) {
+  searchProperty(pg: number, pgS: number, searchedUser) {
     return this.http.get(`${this.baseURL}/for${searchedUser.searchType}/dataTable?pg=${pg}&pgS=${pgS}&propertyType=${searchedUser.propertyType}&city=${searchedUser.city}`)
+  }
+
+  searchOwnerProperty(pg: number, pgS: number, searchedUser) {
+    return this.http.get(`${this.baseURL}/for${searchedUser.searchType}/ownerDataTable?pg=${pg}&pgS=${pgS}&propertyType=${searchedUser.propertyType}&city=${searchedUser.city}&_id=${searchedUser._id}`)
   }
 
   updateProperty(property) {
@@ -24,4 +28,7 @@ export class PropertiesService {
     return this.http.patch(`${this.baseURL}/for${type}/AdminEdit/${property._id}`, property);
   }
 
+  updateImage(iamges, type) {
+    return this.http.patch(`${this.baseURL}/for${type}/AdminEdit/${property._id}`, property);
+  }
 }
