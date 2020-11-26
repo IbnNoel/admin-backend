@@ -41,11 +41,6 @@ export class TownsComponent implements OnInit {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key: '_id',
-        className: 'data_grid_left_align',
-        header: 'Id'
-      },
-      {
         key: 'country',
         className: 'data_grid_left_align',
         header: 'country',

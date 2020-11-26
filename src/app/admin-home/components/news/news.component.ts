@@ -44,16 +44,6 @@ export class NewsComponent implements OnInit {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        header: 'id',
-        key: '_id',
-        className: 'data_grid_left_align',
-      },
-      {
-        header: 'Author ID',
-        key: 'userId',
-        className: 'data_grid_left_align',
-      },
-      {
         key: 'articleHeadline.en',
         className: 'data_grid_left_align',
         header: 'Article Head Line',

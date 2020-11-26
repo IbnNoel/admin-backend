@@ -29,6 +29,6 @@ export class PropertiesService {
   }
 
   updateImage(iamges, type) {
-    return this.http.patch(`${this.baseURL}/for${type}/AdminEdit/${property._id}`, property);
+    return this.http.patch(`${this.baseURL}/for${type}/AdminEdit/${iamges._id}`, type);
   }
 }

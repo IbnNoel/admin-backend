@@ -47,11 +47,6 @@ export class AdminPropertiesComponent implements OnInit {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key: '_id',
-        className: `data_grid_left_align`,
-        header: 'Id'
-      },
-      {
         key: 'currencyCode',
         className: `data_grid_left_align`,
         header: 'Currency Code',

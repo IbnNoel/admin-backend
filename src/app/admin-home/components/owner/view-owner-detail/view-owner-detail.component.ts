@@ -54,19 +54,27 @@ export class ViewOwnerDetailComponent implements OnInit {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key: '_id',
-        className: 'data_grid_left_align',
-        header: 'Id'
-      },
-      {
         key: 'property.city',
         className: 'data_grid_center_align',
         header: 'city'
       },
       {
+        key: 'property.addressLine1',
+        className: 'data_grid_center_align',
+        header: 'Address',
+        formatter: (data,type, row) => {
+          return data + ', ' + (row.property.addressLine2 || '')
+        },
+      },
+      {
         key: 'property.propertyType',
         className: 'data_grid_center_align',
         header: 'Type'
+      },
+      {
+        key: 'property.area',
+        className: 'data_grid_center_align',
+        header: 'Area'
       },
       {
         cellElement: (cellData, rowData, row) => {

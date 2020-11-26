@@ -31,7 +31,7 @@ export class OwnerComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchFormGroup = this.formBuilder.group({
-      _id: ['']
+      name: ['']
     });
     this.onPageChange();
   }
@@ -39,9 +39,9 @@ export class OwnerComponent implements OnInit {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key: '_id',
+        key: 'user.name',
         className: 'data_grid_left_align',
-        header: 'Id'
+        header: 'Name'
       },
       {
         key: 'forRent.length',

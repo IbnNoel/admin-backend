@@ -56,11 +56,6 @@ export class AdminComponent {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key: '_id',
-        className: 'data_grid_left_align',
-        header: 'Id'
-      },
-      {
         key: 'email',
         className: 'data_grid_left_align',
         header: 'Email',
