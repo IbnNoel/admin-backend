@@ -47,18 +47,11 @@ export class RoleGaurdService {
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService, private statusMessageService: MessageService,private  translate: TranslateService) {
+  constructor(private statusMessageService: MessageService,private  translate: TranslateService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!!this.auth.getJwtToken()) {
-      req = req.clone({
-        setHeaders: {
-          Authorization: 'Bearer ' + this.auth.getJwtToken()
-        }
-      });
-    }
     let subscription = next.handle(req).pipe(share());
     subscription.subscribe(null, (resp) =>{
       if (resp instanceof HttpErrorResponse){
