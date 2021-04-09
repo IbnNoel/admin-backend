@@ -39,9 +39,28 @@ export class OwnerComponent implements OnInit {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key: 'user.name',
+        key: "firstName",
         className: 'data_grid_left_align',
-        header: 'Name'
+        header: 'Name',
+        formatter: (data, type, row) => {
+          return data + " " + (row.lastName || "")
+        },
+        responsivePriority: true
+      },
+      {
+        key: 'email',
+        className: 'data_grid_center_align',
+        header: 'Email'
+      },
+      {
+        key: 'phoneNumber',
+        className: 'data_grid_center_align',
+        header: 'Phone Number'
+      },
+      {
+        key: 'userType',
+        className: 'data_grid_center_align',
+        header: 'UserType'
       },
       {
         key: 'forRent.length',

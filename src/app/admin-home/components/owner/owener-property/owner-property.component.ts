@@ -8,9 +8,9 @@ import { Location } from '@angular/common';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-owener-property',
-  templateUrl: './owener-property.component.html',
-  styleUrls: ['./owener-property.component.css']
+  selector: 'app-owner-property',
+  templateUrl: './owner-property.component.html',
+  styleUrls: ['./owner-property.component.css']
 })
 export class OwnerPropertyComponent implements OnInit {
 

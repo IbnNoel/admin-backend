@@ -32,7 +32,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select'; 
 import { ViewOwnerDetailComponent } from './components/owner/view-owner-detail/view-owner-detail.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { OwenerPropertyComponent } from './components/owner/owener-property/owener-property.component';
+import { OwnerPropertyComponent } from './components/owner/owener-property/owner-property.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -58,7 +58,7 @@ import { OwenerPropertyComponent } from './components/owner/owener-property/owen
     OwnerComponent,
     PropertiesComponent,
     ViewPropertyComponent,
-    OwenerPropertyComponent
+    OwnerPropertyComponent,
   ],
   imports: [
     SharedModule,
@@ -98,7 +98,7 @@ import { OwenerPropertyComponent } from './components/owner/owener-property/owen
           { path: 'properties', component: PropertiesComponent},
           { path: 'editProperty', component: ViewPropertyComponent},
           { path: 'viewDetails-owner/:_id', component: ViewOwnerDetailComponent},
-          { path: 'owner-property', component: OwenerPropertyComponent},
+          { path: 'owner-property', component: OwnerPropertyComponent},
         ]
     }
     ])
