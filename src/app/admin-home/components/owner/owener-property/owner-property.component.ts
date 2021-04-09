@@ -12,7 +12,7 @@ import * as _ from 'lodash';
   templateUrl: './owener-property.component.html',
   styleUrls: ['./owener-property.component.css']
 })
-export class OwenerPropertyComponent implements OnInit {
+export class OwnerPropertyComponent implements OnInit {
 
   editState = {
     forSale: false,
