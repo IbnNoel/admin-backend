@@ -9,6 +9,7 @@ import { GeneralSettings } from 'src/app/components/controls/data-table/classes/
 import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 import { OwnerService } from 'src/app/shared/services/owner.service';
 import * as moment from 'moment-mini';
+import { AdminFirebasaeService } from '../../services/admin-firebasae.service';
 
 @Component({
   selector: 'app-owner',
@@ -25,7 +26,7 @@ export class OwnerComponent implements OnInit {
   searchFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder, public CFR: ComponentFactoryResolver,
-              private router: Router,  private ownerService: OwnerService) {
+              private router: Router,  private ownerService: OwnerService, private adminFireBService: AdminFirebasaeService) {
                 this.setUpColumnDefintion();
                 this.setUppageSettings();
               }
@@ -161,11 +162,11 @@ export class OwnerComponent implements OnInit {
 
   generateActionMenuForRfr(cellData, rowData, row) {
     const menu = new ActionMenuComponent();
-    const deleteButton = new ActionButton();
-    deleteButton.label = 'delete';
-    deleteButton.data = rowData;
-    deleteButton.action = (data => {
-      // this.deleteUserInfo(data._id);
+    const disableButton = new ActionButton();
+    disableButton.label = 'disable';
+    disableButton.data = rowData;
+    disableButton.action = (data => {
+      this.disableUser(data._id);
     });
     const viewDetailsButton = new ActionButton();
     viewDetailsButton.label = 'viewDetails';
@@ -176,8 +177,12 @@ export class OwnerComponent implements OnInit {
       const params = {...data, forSale, forRent};
       this.router.navigate([`admin/viewDetails-owner/`, params._id]);
     });
-    menu.buttons.push(deleteButton, viewDetailsButton);
+    menu.buttons.push(disableButton, viewDetailsButton);
     return menu;
+  }
+
+  disableUser(uid) {
+    this.adminFireBService.disableUser(uid).subscribe(data => console.log(data))
   }
 
 }

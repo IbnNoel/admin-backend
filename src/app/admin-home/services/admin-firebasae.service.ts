@@ -6,12 +6,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AdminFirebasaeService {
 
-  readonly baseURL = 'https://us-central1-marriagebandits.cloudfunctions.net/deleteUser';
+  readonly baseURL = 'https://us-central1-marriagebandits.cloudfunctions.net';
 
   constructor( private http: HttpClient) {
   }
 
   deleteFBUser(uid) {
-    return this.http.delete<void>(`${this.baseURL}?uid=${uid}`);
+    return this.http.delete<void>(`${this.baseURL}/deleteUser?uid=${uid}`);
+  }
+
+  disableUser(uid) {
+    return this.http.patch(`${this.baseURL}/disableUser?uid=${uid}`,{});
   }
 }
