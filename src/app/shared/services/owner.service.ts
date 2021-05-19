@@ -12,6 +12,6 @@ export class OwnerService {
   constructor(private http: HttpClient) { }
 
   searchOwner(pg: number,pgS: number, searchedUser) {
-    return this.http.get<ApiResponse<any[]>>(`${this.baseURL}/viewOwnerProp?pg=${pg}&pgS=${pgS}&name=${searchedUser.name}`)
+    return this.http.get<ApiResponse<any[]>>(`${this.baseURL}/viewOwnerProp?pg=${pg}&pgS=${pgS}&name=${searchedUser.name}&date=${searchedUser.date}`)
   }
 }

@@ -33,6 +33,12 @@ import {MatSelectModule} from '@angular/material/select';
 import { ViewOwnerDetailComponent } from './components/owner/view-owner-detail/view-owner-detail.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { OwnerPropertyComponent } from './components/owner/owener-property/owner-property.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AdminComponent,
@@ -67,6 +73,9 @@ import { OwnerPropertyComponent } from './components/owner/owener-property/owner
     MatRadioModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatDatepickerModule,
     RouterModule.forRoot([
       { 
         path: 'admin', 

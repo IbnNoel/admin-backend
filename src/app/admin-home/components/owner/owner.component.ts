@@ -32,7 +32,8 @@ export class OwnerComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchFormGroup = this.formBuilder.group({
-      name: ['']
+      name: [''],
+      date: [new Date('1/1/2019')]
     });
     this.onPageChange();
   }

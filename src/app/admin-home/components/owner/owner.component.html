@@ -7,16 +7,20 @@
                     <div class="col-md-3 form-group">
                         <label>{{'NAME' | translate}}</label>
                         <input type="text" class="form-control" formControlName='name'>
+                        <input matInput [matDatepicker]="picker" formControlName='date' placeholder="Created Date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="button btn btn-primary pull-right">{{'SEARCH' | translate}}</button>
+                        <button type="submit" class="button btn btn-primary pull-right">{{'SEARCH' |
+                            translate}}</button>
                     </div>
                 </div>
             </div>
         </form>
         <app-data-table [Columns]="colDefinitions" [Data]='data' [(GeneralSettings)]="generalSettings"
-             [PageSettings]="pageSettings"></app-data-table>
+            [PageSettings]="pageSettings"></app-data-table>
     </div>
 </div>
