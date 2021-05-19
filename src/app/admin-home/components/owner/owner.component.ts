@@ -8,6 +8,7 @@ import { ExpansionSettings } from 'src/app/components/controls/data-table/classe
 import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
 import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 import { OwnerService } from 'src/app/shared/services/owner.service';
+import * as moment from 'moment-mini';
 
 @Component({
   selector: 'app-owner',
@@ -53,6 +54,29 @@ export class OwnerComponent implements OnInit {
         header: 'Email'
       },
       {
+        key: '_id',
+        className: 'data_grid_center_align',
+        header: 'Date created',
+        formatter: (data, type, row) => {
+          const timestamp = row._id.toString().substring(0, 8);
+          const date = new Date(parseInt(timestamp, 16) * 1000)
+          return moment(date).format('DD/MM/YYYY');
+        }
+      },
+      {
+        key: 'address',
+        className: 'data_grid_center_align',
+        header: 'Address',
+        formatter: (data, type, row) => {
+          return data?.addressLine1 +", "+ data?.addressLine2
+        }
+      },
+      {
+        key: 'address.addressLine3',
+        className: 'data_grid_center_align',
+        header: 'Address'
+      },
+      {
         key: 'phoneNumber',
         className: 'data_grid_center_align',
         header: 'Phone Number'
@@ -63,14 +87,47 @@ export class OwnerComponent implements OnInit {
         header: 'UserType'
       },
       {
-        key: 'forRent.length',
+        key: 'statistics.avgPostScore',
+        className: 'data_grid_center_align',
+        header: 'Kunooz Score',
+        formatter: (data, type, row) => {
+          return Math.round(data);
+        }
+      },
+      {
+        key: 'statistics.forSaleCount',
+        className: 'data_grid_center_align',
+        header: 'Drafted Properties',
+        formatter: (data, type, row) => {
+          const forSaleDrafted = row.statistics.forSaleCount - row.statistics.forSalePublishedCount
+          const forRentDrafted = row.statistics.forRentCount - row.statistics.forRentPublishedCount
+          return forSaleDrafted+forRentDrafted
+        },
+      },
+      {
+        key: 'statistics.forRentPublishedCount',
         className: 'data_grid_center_align',
         header: 'To Rent Properties'
       },
       {
-        key: 'forSale.length',
+        key: 'statistics.forSalePublishedCount',
         className: 'data_grid_center_align',
         header: 'for Sale Properties'
+      },
+      {
+        key: 'statistics.totalCalls',
+        className: 'data_grid_center_align',
+        header: 'Total calls'
+      },
+      {
+        key: 'statistics.totalEmails',
+        className: 'data_grid_center_align',
+        header: 'Total Emails'
+      },
+      {
+        key: 'statistics.totalViews',
+        className: 'data_grid_center_align',
+        header: 'Total Views'
       },
       {
         cellElement: (cellData, rowData, row) => {
