@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { take } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { environment } from 'src/environments/environment.prod';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view-property',
@@ -38,9 +39,14 @@ export class ViewPropertyComponent implements OnInit {
   modifiedurl;
   msg = '';
   disabledButton = true;
+  
+  languages$: Observable<Array<any>>;
+  modifiedDescription: any;
+  selectedPostLang = 'en';
 
   constructor(private route: ActivatedRoute, private location: Location,
               private store: Store<AppState>, private propertyService: PropertiesService) {
+                this.languages$ = this.store.select(store => store.language.list);
                 this.route.params.pipe(take(1)).subscribe((data: any) => {
                   this.Data = _.cloneDeep(data);
                   this.Data.furnished = JSON.parse(data.furnished || null);
@@ -60,6 +66,12 @@ export class ViewPropertyComponent implements OnInit {
     return (value.invalid || value.touched);
   }
 
+  onCancel(form) {
+    if(form == 'f1') {
+      this.property = JSON.parse(this.Data.property);
+    }
+  }
+
   changeStatus(value) {
     if (value === 'o') {
       this.oForm = true;
@@ -70,6 +82,15 @@ export class ViewPropertyComponent implements OnInit {
 
   }
 
+  clickLang() {
+    // console.log(this.selectedPostLang)
+    // this.modifiedDescription
+    // this.postData.articleHeadline = this.originalData.articleHeadline[this.selectedPostLang];
+    // this.postData.articleSnippet = this.originalData.articleSnippet[this.selectedPostLang];
+    // this.postData.text = this.originalData.text[this.selectedPostLang];
+    // this.postData.modifiedText = this.originalData.modifiedText[this.selectedPostLang];
+  }
+  
   onSubmit(entity, value?) {
     console.log(entity);
     this.editState[entity] = false;
@@ -80,6 +101,14 @@ export class ViewPropertyComponent implements OnInit {
         });
     }
     if (entity === 'property') {
+      this.Data.property = JSON.stringify(this.property);
+      this.propertyService.updateProperty(this.property)
+        .subscribe(data => {
+          console.log(data);
+        });
+    }
+    if (entity === 'description') {
+      this.Data.property = JSON.stringify(this.property);
       this.propertyService.updateProperty(this.property)
         .subscribe(data => {
           console.log(data);

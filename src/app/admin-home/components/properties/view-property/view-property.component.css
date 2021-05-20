@@ -39,6 +39,18 @@ label{
 .list-group input{
     display: none;
 }
+.list-group select{
+    display: none;
+}
+.editState .list-group select{
+    display: inline-block;
+}
+.list-group textArea{
+    display: none;
+}
+.editState .list-group textArea{
+    display: inline-block;
+}
 .list-group mat-checkbox{
     display: none;
 }

@@ -8,6 +8,7 @@ import { ExpansionSettings } from 'src/app/components/controls/data-table/classe
 import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
 import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 import { PropertiesService } from 'src/app/shared/services/properties.service';
+import * as moment from 'moment-mini';
 
 @Component({
   selector: 'app-properties',
@@ -43,9 +44,44 @@ export class PropertiesComponent implements OnInit {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key: '_id',
+        key: "owner",
         className: 'data_grid_left_align',
-        header: 'Id'
+        header: 'Name',
+        formatter: (data, type, row) => {
+          return data.firstName + " " + (data.lastName || "")
+        },
+        responsivePriority: true
+      },
+      {
+        key: 'owner',
+        className: 'data_grid_center_align',
+        header: 'email',
+        formatter: (data, type, row) => {
+          return data.email
+        },
+        responsivePriority: true
+      },
+      {
+        key: '_id',
+        className: 'data_grid_center_align',
+        header: 'Date created',
+        formatter: (data, type, row) => {
+          const timestamp = row._id.toString().substring(0, 8);
+          const date = new Date(parseInt(timestamp, 16) * 1000)
+          return moment(date).format('DD/MM/YYYY');
+        }
+      },
+      {
+        key: 'property.published',
+        className: 'data_grid_center_align',
+        header: 'Published',
+        cellElement: (cellData, rowData, row, col, td) => {
+          if(cellData){
+            $(td).html("<span style='font-size: 25px' class='glyphicon glyphicon-ok-circle'></span>");
+          }else{
+            $(td).html("<span style='font-size: 25px' class='glyphicon glyphicon-remove-circle'></span>");
+          }
+        }
       },
       {
         key: 'property.city',
@@ -57,6 +93,12 @@ export class PropertiesComponent implements OnInit {
         className: 'data_grid_center_align',
         header: 'Type'
       },
+      {
+        key: 'owner.phoneNumber',
+        className: 'data_grid_center_align',
+        header: 'Mobile'
+      },
+
       {
         cellElement: (cellData, rowData, row) => {
           return this.generateActionMenuForRfr(cellData, rowData, row);
