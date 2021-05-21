@@ -20,11 +20,13 @@ export class ViewPropertyComponent implements OnInit {
   editState = {
     property: false,
     data: false,
-    image: false
+    image: false,
+    description: false
   };
   firstFormGroup: FormGroup;
   oForm = false;
   f1Form = false;
+  f3Form = false;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
@@ -52,6 +54,7 @@ export class ViewPropertyComponent implements OnInit {
                   this.Data.furnished = JSON.parse(data.furnished || null);
                   this.Data.sharedAccommodation = JSON.parse(data.sharedAccommodation || null);
                   this.property = JSON.parse(data.property);
+                  this.modifiedDescription = this.property.description[this.selectedPostLang];
                   this.type = data.type;
                   this.imageData = this.property.images_key;
                 });
@@ -79,17 +82,17 @@ export class ViewPropertyComponent implements OnInit {
     if (value === 'f1') {
       this.f1Form = true;
     }
+    if (value === 'f3') {
+      this.f3Form = true;
+      console.log(this.f3Form);
+    }
 
   }
 
   clickLang() {
-    // console.log(this.selectedPostLang)
-    // this.modifiedDescription
-    // this.postData.articleHeadline = this.originalData.articleHeadline[this.selectedPostLang];
-    // this.postData.articleSnippet = this.originalData.articleSnippet[this.selectedPostLang];
-    // this.postData.text = this.originalData.text[this.selectedPostLang];
-    // this.postData.modifiedText = this.originalData.modifiedText[this.selectedPostLang];
-  }
+    console.log(this.selectedPostLang)
+    this.modifiedDescription = this.modifiedDescription = this.property.description[this.selectedPostLang];
+   }
   
   onSubmit(entity, value?) {
     console.log(entity);
@@ -108,8 +111,9 @@ export class ViewPropertyComponent implements OnInit {
         });
     }
     if (entity === 'description') {
+      this.property.description[this.selectedPostLang] = this.modifiedDescription;
       this.Data.property = JSON.stringify(this.property);
-      this.propertyService.updateProperty(this.property)
+      this.propertyService.updateDescription(this.property)
         .subscribe(data => {
           console.log(data);
         });

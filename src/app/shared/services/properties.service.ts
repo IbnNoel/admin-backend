@@ -24,6 +24,10 @@ export class PropertiesService {
     return this.http.patch(`${this.baseURL}/property/AdminEditProperty/${property._id}`, property);
   }
 
+  updateDescription(property) {
+    return this.http.patch(`${this.baseURL}/property/AdminEditDescription/${property._id}`, property);
+  }
+
   updateEditPropertyData(property, type) {
     return this.http.patch(`${this.baseURL}/for${type}/AdminEdit/${property._id}`, property);
   }

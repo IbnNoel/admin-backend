@@ -175,32 +175,31 @@
                     </form>
                 </div> 
                 <div class="col-md-6">
-                    <form *ngIf="!!property._id" #f2="ngForm" (ngSubmit)="onSubmit('property')"
-                        [ngClass]="{'editState':editState.property}">
+                    <form *ngIf="!!property._id" #f3="ngForm" (ngSubmit)="onSubmit('description')"
+                        [ngClass]="{'editState':editState.description}">
                         <ul class="list-group">
                             <li class="list-group-item  panel-heading">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5><i></i>Post info in: </h5>
+                                        <h5><i></i>Property Description</h5>
                                             <select (change)="clickLang()" name="selectedPostLang" [(ngModel)]="selectedPostLang">
                                                 <option *ngFor="let lang of (languages$ | async)" [selected]="lang === selectedPostLang" [ngValue]="lang">{{lang}}</option>
                                             </select>
-                                        <h5><i></i>Description</h5>
+                                        <h5><i></i>{{selectedPostLang}}:</h5>
                                         <a type="button" class="glyphicon glyphicon-pencil btn btn-primary pull-right"
-                                            (click)="editState.property = !editState.property; f1Form = false"></a>
+                                            (click)="editState.description = !editState.description; f1Form = false"></a>
                                     </div>
                                 </div>
                             </li>
-                            <li class="list-group-item"><label>Address Line 1</label>
-                                <span class="readContent">{{property.addressLine1}}</span>
-                                <textarea required  style = "height:700px" class="input" class="form-control" name="text" [(ngModel)]="property.description.en" required></textarea>
-                                <input type="text" (change)="changeStatus('f1')" class="form-control" name="addressLine1" [(ngModel)]="property.addressLine1" [ngModelOptions]="{updateOn:'submit'}" />
+                            <li class="list-group-item"><label>Description</label>
+                                <span class="readContent">{{property.description[selectedPostLang]}}</span>
+                                <textarea (ngModelChange)="changeStatus('f3')"  style = "height:700px" class="input" class="form-control" name="text" [(ngModel)]="modifiedDescription" required ></textarea>
                             </li>
                             <li class="list-group-item editBtns">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button (click)="onCancel('f1');editState.property = !editState.property; f1Form= false;"class="btn btn-default pull-left">Cancel</button>
-                                        <button [disabled]="!f1Form" type="submit" class="btn btn-primary pull-right">Save</button>
+                                        <button (click)="editState.description = !editState.description; f3Form= false;"class="btn btn-default pull-left">Cancel</button>
+                                        <button [disabled]="!f3Form" type="submit" class="btn btn-primary pull-right">Save</button>
                                     </div>
                                 </div>
                             </li>
