@@ -38,6 +38,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { DashboardMetricsComponent } from './components/dashboard-metrics/dashboard-metrics.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     PropertiesComponent,
     ViewPropertyComponent,
     OwnerPropertyComponent,
+    DashboardMetricsComponent,
   ],
   imports: [
     SharedModule,
@@ -108,6 +110,7 @@ import { MatNativeDateModule } from '@angular/material/core';
           { path: 'editProperty', component: ViewPropertyComponent},
           { path: 'viewDetails-owner/:_id', component: ViewOwnerDetailComponent},
           { path: 'owner-property', component: OwnerPropertyComponent},
+          { path: 'dashboard-metrics', component: DashboardMetricsComponent},
         ]
     }
     ])
