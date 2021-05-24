@@ -10,7 +10,7 @@ import { ActionMenuComponent, ActionButton } from 'src/app/components/controls/a
 import * as moment from 'moment-mini';
 import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
 import { EditArticleComponent } from './edit-article/edit-article.component';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-news',
@@ -37,6 +37,7 @@ export class NewsComponent implements OnInit {
     this.searchFormGroup = this.formBuilder.group({
       userId: [''],
       articleHeadline: [''],
+      approved: ['']
     });
     this.onPageChange();
   }
@@ -72,6 +73,15 @@ export class NewsComponent implements OnInit {
 
   generateActionMenuForRfr(cellData, rowData, row) {
     const menu = new ActionMenuComponent();
+    const pubUnpubButton = new ActionButton();
+    pubUnpubButton.label = 'Publish/Unpublish';
+    pubUnpubButton.data = rowData;
+    pubUnpubButton.action = (data => {
+      const modiData = {...data, 'approved': !data.approved}
+      this.newsService.publishUnPublish(modiData)
+      .pipe(tap(() => this.onPageChange()))
+      .subscribe();
+    });
     const deleteButton = new ActionButton();
     deleteButton.label = 'delete';
     deleteButton.data = rowData;
@@ -95,7 +105,7 @@ export class NewsComponent implements OnInit {
     editInfo.action = (data) => {
       this.expansionSettings.ExpandGrid({ id: data._id, propertyName: '_id' });
     };
-    menu.buttons.push(seePostInfo, deleteButton);
+    menu.buttons.push(seePostInfo, deleteButton, pubUnpubButton);
     return menu;
   }
 
@@ -143,6 +153,14 @@ export class NewsComponent implements OnInit {
         resolve(component);
       });
     });
+  }
+
+  publishUnPublishAction(data, rowData) {
+    const modiData = {...data, 'approved': !data.approved}
+    this.newsService.publishUnPublish(modiData).subscribe(resp => {
+      this.generalSettings.UpddateRow({ id: data['_id'], propertyName: "_id" }, rowData);
+    });
+    console.log(modiData);
   }
 
   addPost() {

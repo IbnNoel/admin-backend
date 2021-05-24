@@ -29,6 +29,16 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-3 form-group">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose created date</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName='date'>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>    
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <button type="submit" class="button btn btn-primary pull-right">{{'SEARCH' | translate}}</button>
                     </div>

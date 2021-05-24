@@ -36,7 +36,8 @@ export class PropertiesComponent implements OnInit {
       _id: [''],
       searchType: ['Sale'],
       city: [''],
-      propertyType: ['']
+      propertyType: [''],
+      date: [new Date('1/1/2019')]
     });
     this.onPageChange();
   }

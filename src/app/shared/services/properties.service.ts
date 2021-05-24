@@ -12,8 +12,8 @@ export class PropertiesService {
 
   constructor(private http: HttpClient) { }
   
-  searchProperty(pg: number, pgS: number, searchedUser) {
-    return this.http.get(`${this.baseURL}/for${searchedUser.searchType}/dataTable?pg=${pg}&pgS=${pgS}&propertyType=${searchedUser.propertyType}&city=${searchedUser.city}`)
+  searchProperty(pg: number, pgS: number, searchedProperty) {
+    return this.http.get(`${this.baseURL}/for${searchedProperty.searchType}/dataTable?pg=${pg}&pgS=${pgS}&propertyType=${searchedProperty.propertyType}&city=${searchedProperty.city}&date=${searchedProperty.date}`)
   }
 
   searchOwnerProperty(pg: number, pgS: number, searchedUser) {

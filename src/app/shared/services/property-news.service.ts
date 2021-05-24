@@ -14,7 +14,7 @@ export class PropertyNewsService {
 
   getDataTable(pg, pgS, data): Observable<any> {
     let urlParams: HttpParams = new HttpParams();
-    urlParams = {...urlParams, pgS, pg, userId: data.userId, articleHeadline: data.articleHeadline} as any;
+    urlParams = {pgS, pg, 'approved': data.approved, userId: data.userId, articleHeadline: data.articleHeadline} as any;
     return this.http.get(`${this.baseURL}/datatable`, {params: urlParams});
   }
 
@@ -28,6 +28,10 @@ export class PropertyNewsService {
 
   uploadImage(post) {
     return this.http.patch(`${this.baseURL}/uploadImage`, post);
+  }
+
+  publishUnPublish(post) {
+    return this.http.patch(`${this.baseURL}/ChangePub/${post._id}`, post);
   }
 
   createPost(post) {

@@ -4,10 +4,16 @@
         <form [formGroup]="searchFormGroup" (ngSubmit)="onPageChange('search')">
             <div class="well">
                 <div class="row">
-                    <!-- <div class="col-md-3 form-group">
-                        <label>{{'AUTHOR_ID' | translate}}</label>
-                        <input type="text" class="form-control" formControlName='userId'>
-                    </div> -->
+                    <div class="col-md-3 form-group">
+                        <mat-form-field>
+                            <mat-label>Property Type</mat-label>
+                            <mat-select formControlName='approved'>
+                              <mat-option value="">All</mat-option>
+                              <mat-option value=true>Published</mat-option>
+                              <mat-option value=false>unPublished</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
                     <div class="col-md-3 form-group">
                         <label>{{'ARTICLE_HEADLINE' | translate}}</label>
                         <input type="text" class="form-control" formControlName='articleHeadline'>

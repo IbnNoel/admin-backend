@@ -7,9 +7,14 @@
                     <div class="col-md-3 form-group">
                         <label>{{'NAME' | translate}}</label>
                         <input type="text" class="form-control" formControlName='name'>
-                        <input matInput [matDatepicker]="picker" formControlName='date' placeholder="Created Date">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose created date</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName='date'>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
