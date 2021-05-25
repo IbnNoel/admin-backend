@@ -1,1 +1,90 @@
-<p>dashboard-metrics works!</p>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>{{'MANAGE_AGENTS' | translate}}</h3>
+        <form [formGroup]="searchFormGroup" (ngSubmit)="onSearchChange()">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <mat-form-field>
+                            <mat-label>Choose a period</mat-label>
+                            <mat-select formControlName='date'>
+                              <mat-option value="''">{{'ANYTIME' | translate}}</mat-option>
+                              <mat-option *ngFor="let added_ of addedList" [value]="added_.value">{{added_.display | translate}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="button btn btn-primary pull-right">{{'SEARCH' |translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-body col-md-offset-3">
+            <h4>{{'Dashboard Data' | translate}}</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <form #o="ngForm">
+                            <ul class="list-group" *ngIf="metricsData">
+                                <li class="list-group-item  panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5><i></i>Total agents: {{metricsData.allAgents}}</h5>
+                                            <span class="glyphicon glyphicon-user"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item  panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5><i></i>Total agents {{dateLabel}}: {{metricsData.agentsNew}}</h5>
+                                            <span class="glyphicon glyphicon-user"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item  panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5><i></i>Total Views: {{metricsData.allViews}}</h5>
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item  panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5><i></i>Total Calls: {{metricsData.allCalls}}</h5>
+                                            <span class="glyphicon glyphicon-earphone"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item  panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5><i></i>Total Published {{dateLabel}}: {{metricsData.pubPrp}}</h5>
+                                            <span class="glyphicon glyphicon-ok-circle"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item  panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5><i></i>Total UnPublished {{dateLabel}}: {{metricsData.unPubPrp}}</h5>
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
