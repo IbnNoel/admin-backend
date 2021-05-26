@@ -35,6 +35,9 @@ export class SeePostInfoComponent implements OnInit {
   languages$: Observable<Array<any>>;
   selectedPostLang = 'en';
 
+  f1Form = false;
+  f2Form = false;
+
   constructor(private route: ActivatedRoute, private _location: Location, private store: Store<AppState>,
     private postService: PropertyNewsService, private s3: AwsService) {
     this.languages$ = this.store.select(store => store.language.list);
@@ -104,12 +107,22 @@ export class SeePostInfoComponent implements OnInit {
     return url;
   }
 
+  changeStatus(value) {
+    if (value === 'f1Form') {
+      this.f1Form = true;
+    }
+    if (value === 'f2Form') {
+      this.f2Form = true;
+    }
+
+  }
+
   submitPostData(data?) {
     console.log(data);
-    // this.editState.post = false;
-    // this.postData.text = this.postData.modifiedText;
-    // this.postService.editPost(this.postData, this.selectedPostLang)
-    //   .subscribe(Data => console.log(Data));
+    this.editState.post = false;
+    this.postData.text = this.postData.modifiedText;
+    this.postService.editPost(this.postData, this.selectedPostLang)
+      .subscribe(Data => console.log(Data));
   }
 
   uploadImage() {

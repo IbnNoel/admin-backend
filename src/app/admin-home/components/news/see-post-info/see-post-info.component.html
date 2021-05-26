@@ -11,52 +11,51 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h5><i></i>Post info in: </h5>
-                                            <select (change)="clickLang()" name="selectedPostLang" [(ngModel)]="selectedPostLang">
+                                            <select (change)="clickLang();changeStatus('f1Form')" name="selectedPostLang" [(ngModel)]="selectedPostLang">
                                                 <option *ngFor="let lang of (languages$ | async)" [selected]="lang === selectedPostLang" [ngValue]="lang">{{lang}}</option>
                                             </select>
                                             <a class="glyphicon glyphicon-pencil btn btn-primary pull-right"
-                                                (click)="editState.post = !editState.post"></a>
+                                                (click)="editState.post = !editState.post; f1Form=false"></a>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="list-group-item"><label>articleHeadline</label>
                                     <span class="readContent" *ngIf="selectedPostLang" >{{postData.articleHeadline}}</span>
-                                    <input required  type="text" class="form-control" name="articleHeadline" [(ngModel)]="postData.articleHeadline" [ngModelOptions]="{updateOn:'submit'}" required required/>
+                                    <input required (change)="changeStatus('f1Form')"  type="text" class="form-control" name="articleHeadline" [(ngModel)]="postData.articleHeadline" [ngModelOptions]="{updateOn:'submit'}" required required/>
                                 </li>
                                 <li class="list-group-item"><label>articleSnippet</label>
                                     <span class="readContent">{{postData.articleSnippet}}</span>
-                                    <input required  type="text" class="form-control" name="articleSnippet" [(ngModel)]="postData.articleSnippet" [ngModelOptions]="{updateOn:'submit'}" required/>
+                                    <input required  (change)="changeStatus('f1Form')" type="text" class="form-control" name="articleSnippet" [(ngModel)]="postData.articleSnippet" [ngModelOptions]="{updateOn:'submit'}" required/>
                                 </li>
                                 <li class="list-group-item"><label>location Code</label>
                                     <span class="readContent">{{postData.locationCode}}</span>
-                                    <input required  type="text" class="form-control" name="locationCode" [(ngModel)]="postData.locationCode" [ngModelOptions]="{updateOn:'submit'}" required/>
+                                    <input required (change)="changeStatus('f1Form')"  type="text" class="form-control" name="locationCode" [(ngModel)]="postData.locationCode" [ngModelOptions]="{updateOn:'submit'}" required/>
                                 </li>
                                 <li class="list-group-item"><label>Text</label>
                                     <span class="readContent">{{postData.text}}</span>
-                                    <textarea required  style = "height:700px" class="input" class="form-control" name="text" [(ngModel)]="postData.modifiedText" required></textarea>
+                                    <textarea required (change)="changeStatus('f1Form')" style = "height:700px" class="input" class="form-control" name="text" [(ngModel)]="postData.modifiedText" required></textarea>
                                 </li>
                                 <li class="list-group-item"><label>reading Time</label>
                                     <span class="readContent">{{postData.readingTime}}</span>
-                                    <input  type="number" class="form-control" name="readingTime" [(ngModel)]="postData.readingTime" [ngModelOptions]="{updateOn:'submit'}" required/>
+                                    <input  type="number" (change)="changeStatus('f1Form')" class="form-control" name="readingTime" [(ngModel)]="postData.readingTime" [ngModelOptions]="{updateOn:'submit'}" required/>
                                 </li>
                                 <li class="list-group-item"><label>Approved</label>
                                     <span style='font-size: 25px'
                                         [ngClass]="{'glyphicon-ok-circle' : postData.approved, 'glyphicon-remove-circle':!postData.approved }"
                                         class='glyphicon readContent'></span>
-                                    <mat-checkbox class="example-margin" name="approved" [(ngModel)]="postData.approved" [ngModelOptions]="{updateOn:'submit'}"></mat-checkbox>
+                                    <mat-checkbox (change)="changeStatus('f1Form')" class="example-margin" name="approved" [(ngModel)]="postData.approved" [ngModelOptions]="{updateOn:'submit'}"></mat-checkbox>
                                 </li>
                                 <li class="list-group-item"><label>Featured</label>
                                     <span style='font-size: 25px'
                                         [ngClass]="{'glyphicon-ok-circle' : postData.featured, 'glyphicon-remove-circle':!postData.featured }"
                                         class='glyphicon readContent'></span>
-                                    <mat-checkbox class="example-margin" name="featured" [(ngModel)]="postData.featured" [ngModelOptions]="{updateOn:'submit'}"></mat-checkbox>
+                                    <mat-checkbox (change)="changeStatus('f1Form')" class="example-margin" name="featured" [(ngModel)]="postData.featured" [ngModelOptions]="{updateOn:'submit'}"></mat-checkbox>
                                 </li>
                                 <li class="list-group-item editBtns">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button (click)="editState.post = !editState.post"
-                                                class="btn btn-default pull-left">Cancel</button>
-                                            <button [disabled]="o.form.invalid || !o.form.touched" type="submit" click="" class="btn btn-primary pull-right">Save</button>
+                                            <button (click)="editState.post = !editState.post; f1Form=false" class="btn btn-default pull-left">Cancel</button>
+                                            <button [disabled]="!f1Form" type="submit" click="" class="btn btn-primary pull-right">Save</button>
                                         </div>
                                     </div>
                                 </li>
