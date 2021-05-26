@@ -8,7 +8,7 @@
                         <mat-form-field>
                             <mat-label>Choose a period</mat-label>
                             <mat-select formControlName='date'>
-                              <mat-option value="''">{{'ANYTIME' | translate}}</mat-option>
+                              <mat-option [value]="''">{{'ANYTIME' | translate}}</mat-option>
                               <mat-option *ngFor="let added_ of addedList" [value]="added_.value">{{added_.display | translate}}</mat-option>
                             </mat-select>
                           </mat-form-field>
