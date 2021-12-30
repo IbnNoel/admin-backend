@@ -124,7 +124,7 @@ export class AdminComponent {
     deleteButton.label = "delete";
     deleteButton.data = rowData;
     deleteButton.action = (data => {
-      this.deleteUserInfo(data._id);
+      this.deleteUserInfo(rowData);
     });
     let editUserInfo = new ActionButton();
     editUserInfo.label = "Edit User Info";
@@ -163,18 +163,15 @@ export class AdminComponent {
     });
   }
 
-  deleteUserInfo(uid) {
-    console.log(uid);
-    if (this.currentUser._id == uid) {
+  deleteUserInfo(data) {
+    console.log(data);
+    if (this.currentUser._id == data._id) {
       alert('You are not Allowed to delete YourSelf, Please go to Unregisteration page to do that')
     }
     else {
       if (confirm('Are you sure want to delte this user?')) {
-        this.adminFireBService.deleteFBUser(uid).pipe(
-          concatMap(id => this.userMdbService.deleteUser(id).pipe(
-            mergeMap(() => this.addressService.deleteAddress(id))))
-        ).subscribe(data => {
-          this.generalSettings.DeleteRow({id: uid, propertyName: "_id" });
+        this.adminFireBService.deleteFBUser(data).subscribe(res => {
+          this.generalSettings.DeleteRow({id: data._id, propertyName: "_id" });
           });
       }
     }

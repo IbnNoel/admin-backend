@@ -161,13 +161,23 @@ export class OwnerComponent implements OnInit {
   }
 
   generateActionMenuForRfr(cellData, rowData, row) {
+    console.log(rowData);
     const menu = new ActionMenuComponent();
     const disableButton = new ActionButton();
-    disableButton.label = 'disable';
+    disableButton.label = 'disable/enable';
     disableButton.data = rowData;
     disableButton.action = (data => {
-      this.disableUser(data._id);
+      this.disableUser(data);
     });
+
+    const deleteButton = new ActionButton();
+    deleteButton.label = 'Delete Agent';
+    deleteButton.data = rowData;
+    deleteButton.action = (data => {
+      this.deleteUser(data);
+      this.generalSettings.DeleteRow({ id: rowData._id, propertyName: "_id" })
+    });
+
     const viewDetailsButton = new ActionButton();
     viewDetailsButton.label = 'viewDetails';
     viewDetailsButton.data = rowData;
@@ -177,12 +187,29 @@ export class OwnerComponent implements OnInit {
       const params = {...data, forSale, forRent};
       this.router.navigate([`admin/viewDetails-owner/`, params._id]);
     });
-    menu.buttons.push(disableButton, viewDetailsButton);
+    menu.buttons.push(disableButton, viewDetailsButton, deleteButton);
     return menu;
   }
 
-  disableUser(uid) {
-    this.adminFireBService.disableUser(uid).subscribe(data => console.log(data))
+  disableUser(data) {
+    const body = this.getBody(data);
+    this.adminFireBService.disableUser(body).subscribe(data => console.log(data));
+  }
+  
+  deleteUser(data) {
+    const body = this.getBody(data);
+    this.adminFireBService.deleteAgent(body).subscribe(data => console.log(data))
   }
 
+  getBody(data) {
+    return {
+      _id: data._id, 
+      addressId: data.addressId, 
+      businessId: data.businessId, 
+      phoneNumber: data.phoneNumber, 
+      firebaseId: data.firebaseId,
+      email: data.email, 
+      propertyMetaDataId: data.propertyMetaDataId
+    };
+  }
 }
