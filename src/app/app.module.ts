@@ -44,6 +44,7 @@ import { ChipsComponent } from './components/controls/chips/chips.component';
 import { PriceListReducer } from './reducers/price-list-form.reducers';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ViewOwnerDetailComponent } from './admin-home/components/owner/view-owner-detail/view-owner-detail.component'; 
+import { TokenInterceptorService } from './shared/services/token-interceptor.service';
 
 
 // import { MatOptionModule } from '@angular/material/core/option';
@@ -113,6 +114,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       {
         provide: HTTP_INTERCEPTORS,
         useClass: ErrorIntercept,
+        multi: true
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: TokenInterceptorService,
         multi: true
       },
       LoaderService, LoaderInterceptor,

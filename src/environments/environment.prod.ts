@@ -1,19 +1,18 @@
 export const environment = {
   production: true,
   firebaseConfig : {
-    apiKey: 'AIzaSyCLW7p0sjH5pNvgz9f9APJC9-MCftSjK4c',
-    authDomain: 'marriagebandits.firebaseapp.com',
-    databaseURL: 'https://marriagebandits.firebaseio.com',
-    projectId: 'marriagebandits',
-    storageBucket: 'marriagebandits.appspot.com',
-    messagingSenderId: '873409025667',
-    appId: '1:873409025667:web:e195e7a4b20384fabd2db6',
-    measurementId: 'G-JBSTL8LD5E'
+    apiKey: "AIzaSyDmlN5omsWjaEGF7pJabVxPjC2J-zR0WGg",
+    authDomain: "kz-admin.firebaseapp.com",
+    projectId: "kz-admin",
+    storageBucket: "kz-admin.appspot.com",
+    messagingSenderId: "87664839542",
+    appId: "1:87664839542:web:f6d66ce9c20a8495864857",
+    measurementId: "G-Y3MR87CG29"
   },
   mapboxKey: 'pk.eyJ1IjoieG1vdXRheiIsImEiOiJjazVvM3RubzUxMXppM21ydzQ5dDI4ZnY3In0.4gqa8rQR0W0VXixe51JxbA',
-  baseUrl: 'https://gas-apiv0.herokuapp.com',
+  // baseUrl: 'https://gas-apiv0.herokuapp.com',
   evironmentName: 'master',
-  // baseUrl: "http://localhost:8081",
+  baseUrl: "http://localhost:8081",
   awsS3: 'https://tetouan-test.s3.eu-west-3.amazonaws.com/',
   awsS3Small: 'https://tetouan-test-resized.s3.eu-west-3.amazonaws.com/',
   AWS_ACCESS_KEY_ID: 'AKIAX7UAHY5DB3ROLPIA',

@@ -180,6 +180,6 @@ export class AuthService {
   }
 
   getJwtToken() {
-    return localStorage.getItem(this.JWT_TOKEN);
+    return this.afAuth.idToken
   }
 }
