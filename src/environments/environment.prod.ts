@@ -10,7 +10,7 @@ export const environment = {
     measurementId: "G-Y3MR87CG29"
   },
   mapboxKey: 'pk.eyJ1IjoieG1vdXRheiIsImEiOiJjazVvM3RubzUxMXppM21ydzQ5dDI4ZnY3In0.4gqa8rQR0W0VXixe51JxbA',
-  baseUrl: 'https://kz-admin-api.herokuapp.com',
+  baseUrl: 'https://https://kz-admin-api-prod.herokuapp.com',
   evironmentName: 'master',
   // baseUrl: "http://localhost:8081",
   awsS3: 'https://tetouan-test.s3.eu-west-3.amazonaws.com/',
