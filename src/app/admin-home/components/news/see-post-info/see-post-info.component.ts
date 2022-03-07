@@ -61,7 +61,7 @@ export class SeePostInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.url = this.imageData.images_key ? this.s3.getObj(this.imageData.images_key[0]) : null;
+    this.url = this.imageData.images_key ? environment.awsS3 + this.imageData.images_key[0] : null;
     this.postData.articleHeadline = this.originalData.articleHeadline[this.selectedPostLang];
     this.postData.articleSnippet = this.originalData.articleSnippet[this.selectedPostLang];
     this.postData.text = this.originalData.text[this.selectedPostLang];
@@ -102,8 +102,10 @@ export class SeePostInfoComponent implements OnInit {
   }
 
   getImageUrl() {
+    
     let url = this.url ? this.url : environment.awsS3 + this.imageData.images_key;
     //  let url = this.url ? this.url : this.s3.getObj(this.imageData.images_key);
+    console.log(url);
     return url;
   }
 

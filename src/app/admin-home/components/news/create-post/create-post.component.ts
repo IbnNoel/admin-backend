@@ -116,7 +116,9 @@ export class CreatePostComponent implements OnInit {
     console.log(sendFormData.getAll);
     console.log(sendFormData.getAll(''));
     this.newsService.createPost(sendFormData)
-      .subscribe(Data => console.log(Data));
+      .subscribe(Data => {console.log(Data);
+        this.location.back();
+      });
   }
 
   backButton() {
