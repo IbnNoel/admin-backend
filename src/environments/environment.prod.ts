@@ -1,16 +1,16 @@
 export const environment = {
   production: true,
   firebaseConfig : {
-    apiKey: "AIzaSyDmlN5omsWjaEGF7pJabVxPjC2J-zR0WGg",
-    authDomain: "kz-admin.firebaseapp.com",
-    projectId: "kz-admin",
-    storageBucket: "kz-admin.appspot.com",
-    messagingSenderId: "87664839542",
-    appId: "1:87664839542:web:f6d66ce9c20a8495864857",
-    measurementId: "G-Y3MR87CG29"
+    apiKey: "AIzaSyDWB9-yXcD3BuqBbWE7qLFol8XXSFXlqXw",
+    authDomain: "kz-test-admin.firebaseapp.com",
+    projectId: "kz-test-admin",
+    storageBucket: "kz-test-admin.appspot.com",
+    messagingSenderId: "173137195103",
+    appId: "1:173137195103:web:1af7bf897e93d5a52babea",
+    measurementId: "G-K5RC3FJC59"
   },
   mapboxKey: 'pk.eyJ1IjoieG1vdXRheiIsImEiOiJjazVvM3RubzUxMXppM21ydzQ5dDI4ZnY3In0.4gqa8rQR0W0VXixe51JxbA',
-  baseUrl: 'https://kz-admin-api-prod.herokuapp.com',
+  baseUrl: 'https://kz-admin-api.herokuapp.com',
   evironmentName: 'master',
   //baseUrl: "http://localhost:8081",
   awsS3: 'https://kz-image.fra1.digitaloceanspaces.com/',
