@@ -124,11 +124,11 @@ export class AdminPropertiesComponent implements OnInit {
   }
 
   onPageChange(value?) {
-    (value) ? this.pageSettings.currentPage = 1 : this.pageSettings.currentPage;
+    this.pageSettings.currentPage = (value) ? 1 : this.pageSettings.currentPage;
+    let pg = this.pageSettings.currentPage - 1;
+    let pgS = this.pageSettings.pageSize;
 
-    const pgN = this.pageSettings.currentPage;
-    const pgS = this.pageSettings.pageSize;
-    this.refDataService.searchRefData(this.searchFormGroup, pgS, pgN).subscribe(
+    this.refDataService.searchRefData(this.searchFormGroup, pg, pgS).subscribe(
       (data: any) => {
         console.log(data);
         this.pageSettings.setTotalRecords(data.total);

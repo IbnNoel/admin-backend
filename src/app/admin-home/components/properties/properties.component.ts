@@ -85,7 +85,7 @@ export class PropertiesComponent implements OnInit {
         }
       },
       {
-        key: 'property.city',
+        key: 'property.cityData.city.fr',
         className: 'data_grid_center_align',
         header: 'city'
       },

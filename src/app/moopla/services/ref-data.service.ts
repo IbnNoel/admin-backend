@@ -9,14 +9,14 @@ import { RefData } from '../models/ref-data';
 export class RefDataService {
 
   readonly url = `${environment.baseUrl}/refData`;
-  
+
   constructor(private http: HttpClient) { }
 
   getRefData(_id) {
     return this.http.get<RefData>(`${this.url}/getSpecificRefData/${_id}`);
   }
 
-  searchRefData(searchedQ,pgS, pgN) {
+  searchRefData(searchedQ,pgN, pgS) {
     return this.http.get(`${this.url}/getRefData?_id=${searchedQ.value._id}&country=${searchedQ.value.country}&pgN=${pgN}&pgS=${pgS}`);
   }
 
