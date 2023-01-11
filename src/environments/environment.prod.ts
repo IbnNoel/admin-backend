@@ -10,7 +10,7 @@ export const environment = {
     measurementId: "G-Y3MR87CG29"
   },
   mapboxKey: 'pk.eyJ1IjoieG1vdXRheiIsImEiOiJjazVvM3RubzUxMXppM21ydzQ5dDI4ZnY3In0.4gqa8rQR0W0VXixe51JxbA',
-  baseUrl: 'https://kz-admin-api-prod.herokuapp.com',
+  baseUrl: 'https://kunooz-admin-api.herokuapp.com',
   evironmentName: 'master',
   //baseUrl: "http://localhost:8081",
   awsS3: 'https://kz-image.fra1.digitaloceanspaces.com/',
